@@ -2,7 +2,8 @@
 type: issue
 feature: sign-in-flow
 lane: kmp-common
-status: ready
+status: superseded
+superseded: 2026-06-01
 wave: 0
 estimate: 60m
 blocked-by: []
@@ -10,9 +11,11 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/sign-in-flow
-  - status/ready
+  - status/superseded
   - wave/0
 ---
+
+> [!warning] **Superseded 2026-06-01 by `260601-0040-mobile-auth-wiring/`.** The replacement Inception specs a BE-backed account record (server is source of truth, client holds a thin cache + bearer token). The AC below "single-slot DataStore-Preferences local profile" no longer reflects the system shape.
 
 # [kmp-common] A user profile can be saved and loaded locally
 

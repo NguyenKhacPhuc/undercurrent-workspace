@@ -2,7 +2,8 @@
 type: issue
 feature: sign-in-flow
 lane: kmp-common
-status: ready
+status: superseded
+superseded: 2026-06-01
 wave: 1
 estimate: 60m
 blocked-by:
@@ -11,9 +12,11 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/sign-in-flow
-  - status/ready
+  - status/superseded
   - wave/1
 ---
+
+> [!warning] **Superseded 2026-06-01 by `260601-0040-mobile-auth-wiring/`.** Profile is now server-owned; editing requires a `PATCH /v1/me` endpoint that the BE does NOT yet expose (per `260531-1733-backend-bootstrap-auth/out-of-scope.md`). The replacement Inception scopes Settings to read-only profile display + sign-out; profile-edit is parked until a future BE inception adds the PATCH endpoint.
 
 # [kmp-common] Edit display name and email from Settings
 

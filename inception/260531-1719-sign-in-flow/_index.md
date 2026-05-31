@@ -1,18 +1,23 @@
 ---
 type: feature-index
 feature: sign-in-flow
-status: draft
+status: superseded
 created: 2026-05-31
+superseded: 2026-06-01
 tags:
   - inception/index
   - feature/sign-in-flow
-  - status/draft
+  - status/superseded
 ---
 
 # Sign-in flow — feature index
 
-> [!info] **Status:** Draft / awaiting mob review
-> Generated from Inception phase. Update this file as issues land.
+> [!warning] **Status: SUPERSEDED — 2026-06-01.**
+> This Inception was specced under the explicit assumption that **no backend exists** (see `Constraints` in [[PRD]]: "No backend. All persistence is local."). The backend-bootstrap-auth Inception (`260531-1733-backend-bootstrap-auth/`) shipped end-to-end on 2026-06-01, which inverts the premise: profile + auth are now BE-owned.
+>
+> All 3 stories below are kept as a record of pre-BE thinking but are **not buildable as written** — most ACs no longer match the system shape. The replacement Inception is `260601-0040-mobile-auth-wiring/`, which specs the BE-backed register / sign-in / `/v1/me` / sign-out client flows.
+>
+> See [[decisions#D5 (added 2026-06-01)]] for why this was superseded rather than revised in place.
 
 ## Quick links
 

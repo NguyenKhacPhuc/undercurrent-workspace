@@ -46,6 +46,14 @@ tags:
 - **Why:** Smallest possible footprint. The KMP shared shell is sufficient. We can always add a platform-specific story later if we discover a real need.
 - **Consequences:** Issues live entirely under `issues/kmp-common/`. No `issues/android/` or `issues/ios/` dirs.
 
+### D5 (added 2026-06-01) — Inception superseded rather than revised in place — 2026-06-01
+
+- **Context:** The backend-bootstrap-auth Inception (`260531-1733-backend-bootstrap-auth/`) shipped end-to-end on 2026-06-01. That feature owns user accounts + sessions server-side, inverting the premise of this Inception ("No backend. All persistence is local."). The path forward had to choose between revising this Inception in place or superseding it.
+- **Options considered:** (a) revise in place — rewrite PRD, retire D1–D4, rewrite stories; (b) supersede + new Inception — banner this folder, flip story frontmatter to `superseded`, run a new `/inception` for the BE-wiring feature; (c) audit-only — document the diff, defer the decision.
+- **Decision:** (b). New Inception lives at `260601-0040-mobile-auth-wiring/`.
+- **Why:** D1–D4 here were defensible under "BE is dormant"; rewriting them in place loses the historical record of why they made sense at the time. Also matches BE-Inception D4 exactly: "a follow-up mobile-wiring Inception will reshape the sign-in screen to add a password field + bind to the BE."
+- **Consequences:** This folder is read-only going forward. All 3 stories now carry `status: superseded`. Q1–Q7 in `open-questions.md` are NOT re-resolved here; relevant ones are restated in the new Inception's `open-questions.md` against current reality.
+
 ---
 
 *(Future entries appended as the mob ratifies / overrides / adds.)*

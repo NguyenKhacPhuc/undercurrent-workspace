@@ -1,18 +1,19 @@
 ---
 type: prd
 feature: sign-in-flow
-status: draft
+status: superseded
 created: 2026-05-31
+superseded: 2026-06-01
 tags:
   - inception/prd
   - feature/sign-in-flow
-  - status/draft
+  - status/superseded
 ---
 
 # PRD: Sign-in flow
 
-> [!info] **Status:** Draft / awaiting mob review · **Driver:** Phuc · **Last updated:** 2026-05-31
-> See [[_index]] for the parallel-work plan and [[open-questions]] for unresolved items.
+> [!warning] **Superseded 2026-06-01.**
+> This PRD's `Constraints` block declares "No backend. All persistence is local." That premise was inverted when `backend-bootstrap-auth` shipped end-to-end on 2026-06-01. The replacement Inception is [[../260601-0040-mobile-auth-wiring/PRD]]. See [[decisions#D5 (added 2026-06-01)]] for context.
 
 ## One-line intent
 

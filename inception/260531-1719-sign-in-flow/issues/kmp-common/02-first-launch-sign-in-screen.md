@@ -2,7 +2,8 @@
 type: issue
 feature: sign-in-flow
 lane: kmp-common
-status: ready
+status: superseded
+superseded: 2026-06-01
 wave: 1
 estimate: 90m
 blocked-by:
@@ -11,9 +12,11 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/sign-in-flow
-  - status/ready
+  - status/superseded
   - wave/1
 ---
+
+> [!warning] **Superseded 2026-06-01 by `260601-0040-mobile-auth-wiring/`.** Replacement splits this into register (new user → BE sign-up) and sign-in (returning user → BE sign-in) modes, adds a password field, and adds secure token storage (Keychain/EncryptedSharedPreferences).
 
 # [kmp-common] First-launch blocking sign-in screen
 
