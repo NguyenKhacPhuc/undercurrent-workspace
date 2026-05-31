@@ -87,8 +87,51 @@ git commit -m "Bump undercurrent to <sha>"
 git push
 ```
 
+## AI-SDLC workflow
+
+Feature planning runs through [`ai-sdlc`](https://github.com/NguyenKhacPhuc/simple-ai-sdlc),
+a Claude Code plugin that drives a feature from raw intent to per-lane
+parallel-ready issues with acceptance criteria.
+
+**One-time setup** (Claude Code session):
+
+```
+/plugin install /Users/phucnguyen/Documents/simple-ai-sdlc/ai-sdlc
+```
+
+**Per-feature flow:**
+
+1. Driver opens this workspace and runs `/inception`. The agent grills
+   the driver, produces drafts under
+   `inception/<YYMMDD-HHMM-feature-slug>/`, and parks unanswerable
+   questions in `open-questions.md`.
+2. Mob (Android + iOS engineers) reviews the drafts. Decisions land in
+   `decisions.md`. Open questions get answered.
+3. Driver re-runs `/inception` with the mob's answers. Loop until
+   `open-questions.md` is empty AND every issue has acceptance criteria.
+4. Devs pick ready issues (no unresolved `Blocked by:`) and run
+   `/construct` inside the relevant subrepo. One PR per issue.
+
+**Lanes:** Undercurrent uses only `android` + `ios` (no backend — LLM
+providers are external APIs). The `inception/<feature>/issues/`
+directory will only contain `android/` and `ios/` subdirs.
+
+**Artifacts that grow over time:**
+
+- [`CONTEXT.md`](CONTEXT.md) — project-wide shared language (domain
+  terms + entities). Inception *appends*, never replaces.
+- `inception/<feature>/_index.md` — wave-grouped parallel-work plan
+  per feature.
+- `inception/<feature>/PRD.md` — feature intent + goals + non-goals.
+- `inception/<feature>/decisions.md` — ADR-lite log of mob decisions.
+
+**Obsidian-friendly.** Drop `undercurrent-workspace/` into an Obsidian
+vault — frontmatter, wikilinks, tags, and graph view work without
+plugins.
+
 ## Project docs
 
 - `weft/docs/architecture-vision.md` — the SDK ↔ app split
 - `undercurrent/CLAUDE.md` — host-app architecture, MVI conventions, UI rules
 - `weft/CLAUDE.md` — substrate module layout, tool-authoring rules
+- [`CONTEXT.md`](CONTEXT.md) — shared language across features (AI-SDLC)
