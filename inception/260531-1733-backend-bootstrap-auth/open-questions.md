@@ -24,7 +24,7 @@ tags:
 
 - **Answer:** Ship behind Railway's generated URL (e.g. `*.up.railway.app`) for v1. Move to a custom domain only when sign-up volume or branding justifies the DNS + cert work.
 - **By:** driver
-- **Promoted to:** [[api-contract#Conventions]] (Base URL still says "TBD — set by Railway at deploy time" because the literal hostname is only known after Story 1's first deploy; Story 1's AC pins it back into the contract).
+- **Promoted to:** [[api-contract#Conventions]] — Base URL is now pinned: `https://undercurrent-backend-production.up.railway.app` (set after Story 01's first deploy, 2026-05-31).
 
 ### Q2 — Exact validation rules for email, password, displayName — 2026-05-31
 

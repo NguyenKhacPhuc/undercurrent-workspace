@@ -18,7 +18,7 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 ## Conventions
 
 - **Auth:** Bearer token. `Authorization: Bearer <session-token>`. The token is opaque to clients (no JWT decoding) — see [[decisions#D3]].
-- **Base URL:** `TBD` — set by Railway at deploy time; pinned and shared once the first deploy lands. See [[open-questions#Q1]].
+- **Base URL:** `https://undercurrent-backend-production.up.railway.app` *(pinned 2026-05-31 after Story 01 deploy; Railway-generated, custom domain deferred per Q1 resolution).*
 - **Path versioning:** all endpoints live under `/v1/`. Major-version bumps move to `/v2/`. No minor-version paths.
 - **Error envelope:** all non-2xx responses return
   ```json

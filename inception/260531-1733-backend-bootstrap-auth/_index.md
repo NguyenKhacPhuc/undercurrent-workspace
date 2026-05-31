@@ -17,7 +17,7 @@ tags:
 ## Quick links
 
 - PRD: [[PRD]]
-- API contract: [[api-contract]] *(4 endpoints + `/health`, 0 TBDs)*
+- API contract: [[api-contract]] *(4 endpoints + `/health`, 0 TBDs — base URL pinned after Story 01 deploy)*
 - Decisions: [[decisions]] *(9 to ratify — D1–D5 from drafting, D6–D9 from Q-resolution pass)*
 - Open questions: [[open-questions]] *(0 open — all 8 resolved 2026-05-31)*
 - Out of scope: [[out-of-scope]]
@@ -104,6 +104,6 @@ No `kmp-common/`, `android/`, `ios/`, or `substrate/` directories — BE-only th
 - [ ] All 9 issues have status `done` in their frontmatter.
 - [x] [[open-questions]] has zero unresolved items. *(All 8 resolved 2026-05-31.)*
 - [ ] [[PRD]] has at least one success metric. *(currently: three — uptime, sign-up→authed latency P95, rate-limit trip count.)*
-- [ ] [[api-contract]] has zero `TBD` markers. *(currently: one — base URL, resolved by Story 1.)*
+- [x] [[api-contract]] has zero `TBD` markers. *(Base URL pinned 2026-05-31.)*
 - [ ] End-to-end: from any computer with curl, a fresh sign-up → `/v1/me` → sign-out → `/v1/me` returns 200 then 401 sequence works against the deployed URL.
 - [ ] Workspace `CLAUDE.md` lane table reflects the now-live `backend` lane. *(Owned by [[01-ktor-deploys-to-railway-with-health]].)*

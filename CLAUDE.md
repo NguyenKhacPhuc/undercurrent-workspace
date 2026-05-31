@@ -12,10 +12,11 @@ to learn the conventions; they read this file to learn the project.
   default branch, build, and `gh` issues.
 - **Most work lands in `undercurrent/`.** Substrate changes (`weft/`)
   are pulled in reactively when the host app needs new capability.
-- **No backend today.** LLM providers (Anthropic / OpenAI / OpenRouter
-  / DeepSeek) are external APIs whose contracts we consume but don't
-  author. The `backend` lane reactivates when auth / sync /
-  multi-device ships.
+- **Backend lane is live** as of 2026-05-31 (Inception
+  `260531-1733-backend-bootstrap-auth`, Story 01). Ktor + Postgres
+  on Railway. LLM providers (Anthropic / OpenAI / OpenRouter /
+  DeepSeek) remain external APIs whose contracts we consume but
+  don't author — those don't touch our BE.
 
 ## Lane → location → CLAUDE.md mapping
 
@@ -25,7 +26,7 @@ to learn the conventions; they read this file to learn the project.
 | `android` | `undercurrent/<module>/src/androidMain/` or `androidApp/` | `undercurrent/CLAUDE.md` |
 | `ios` | `undercurrent/<module>/src/iosMain/` or `composeApp/src/iosMain/` | `undercurrent/CLAUDE.md` |
 | `substrate` | `weft/<module>/` (any source set) | `weft/CLAUDE.md` |
-| `backend` | (dormant — TBD when first BE feature ships) | TBD |
+| `backend` | `backend/` (Ktor + Postgres on Railway) | `backend/CLAUDE.md` |
 
 **`kmp-common` is the default lane for new feature work.** Most slices
 are 80% shared `commonMain` (`ViewModel`, `Screen`, `Repository`
