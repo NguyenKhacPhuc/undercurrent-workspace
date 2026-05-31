@@ -2,8 +2,10 @@
 type: issue
 feature: backend-bootstrap-auth
 lane: backend
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent-backend/pull/6
+merged-at: 2026-05-31T16:27:42Z
 wave: 3
 estimate: 60m
 blocked-by:
@@ -13,7 +15,7 @@ tags:
   - inception/issue
   - lane/backend
   - feature/backend-bootstrap-auth
-  - status/in-progress
+  - status/done
   - wave/3
 ---
 
