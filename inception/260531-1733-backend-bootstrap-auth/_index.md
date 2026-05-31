@@ -22,7 +22,7 @@ tags:
 - Open questions: [[open-questions]] *(0 open — all 8 resolved 2026-05-31)*
 - Out of scope: [[out-of-scope]]
 - Project-wide context: [[../../CONTEXT]]
-- Sibling Inception (client side): [[../260531-1719-sign-in-flow/_index]]
+- Sibling Inception (client side): the earlier sign-in-flow Inception
 
 ---
 

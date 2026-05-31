@@ -20,7 +20,7 @@ Stand up Undercurrent's first ever backend — a deployed, internet-reachable se
 
 ## Problem
 
-Undercurrent has been client-only since day one. Every install is anonymous, and the [[../260531-1719-sign-in-flow/PRD|sign-in flow Inception]] that just landed only stores the user's typed identity locally. Without a server, there is no way to:
+Undercurrent has been client-only since day one. Every install is anonymous, and the earlier sign-in-flow Inception that just landed only stores the user's typed identity locally. Without a server, there is no way to:
 
 - recognize the same person across two devices,
 - recover an account after a reinstall, or
@@ -140,7 +140,7 @@ How we know this feature worked, after launch. At least one.
 Deadlines, dependencies, compliance, existing systems we must respect.
 
 - **First-ever BE.** This release adds the `backend` lane to a workspace that's been client-only. Workspace `CLAUDE.md` lane table needs updating; `backend/CLAUDE.md` is a new artifact. The forked Inception skill's BE default ("skip api-contract — no BE") needs to flip going forward.
-- **Existing client.** The sign-in screen Inception ([[../260531-1719-sign-in-flow/PRD]]) does not call this BE. Its [[../260531-1719-sign-in-flow/decisions#D2]] ("no future-proofing for sync") and [[../260531-1719-sign-in-flow/open-questions#Q5]] need re-opening once this BE Inception lands. Tracked here as [[open-questions#Q5]].
+- **Existing client.** The sign-in screen Inception (the earlier sign-in-flow Inception) does not call this BE. Its the earlier sign-in-flow Inception's D2 ("no future-proofing for sync") and the earlier sign-in-flow Inception's Q5 need re-opening once this BE Inception lands. Tracked here as [[open-questions#Q5]].
 - **No secrets in repo.** The Postgres URL, session-signing key (if any), and any other config must come from Railway environment variables, never committed.
 
 ## Links
@@ -150,5 +150,5 @@ Deadlines, dependencies, compliance, existing systems we must respect.
 - Decisions: [[decisions]]
 - Out of scope: [[out-of-scope]]
 - Project-wide context: [[../../CONTEXT]]
-- Sibling Inception (client side): [[../260531-1719-sign-in-flow/PRD]]
+- Sibling Inception (client side): the earlier sign-in-flow Inception
 - Issues: `./issues/backend/`

@@ -49,9 +49,9 @@ tags:
 
 ### Q5 — Does this Inception re-open prior sign-in-flow decisions? — 2026-05-31
 
-- **Answer:** No. Leave [[../260531-1719-sign-in-flow/]] as-is. A separate mobile-wiring Inception (after Construction here) will reshape the sign-in screen to add a password field and bind to the BE.
+- **Answer:** No. Leave the earlier sign-in-flow Inception as-is. A separate mobile-wiring Inception (after Construction here) will reshape the sign-in screen to add a password field and bind to the BE.
 - **By:** driver
-- **Promoted to:** the existing PRD `Constraints` section already names this; no new decision needed. [[../260531-1719-sign-in-flow/decisions#D2]] and that Inception's Q5 stay as written.
+- **Promoted to:** the existing PRD `Constraints` section already names this; no new decision needed. the earlier sign-in-flow Inception's D2 and that Inception's Q5 stay as written.
 
 ### Q6 — Secrets management beyond Railway env vars — 2026-05-31
 

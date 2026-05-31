@@ -12,7 +12,7 @@ tags:
 # PRD: Mobile auth wiring
 
 > [!info] **Status:** Draft / awaiting mob review · **Driver:** Phuc · **Last updated:** 2026-06-01
-> Replaces the superseded [[../260531-1719-sign-in-flow/PRD]]. See [[decisions#D1]] for why this is a new Inception rather than a revision of the old one.
+> Replaces the earlier (now-deleted) sign-in-flow Inception. See [[decisions#D1]] for why this is a new Inception rather than a revision of the old one.
 
 ## One-line intent
 
@@ -47,7 +47,7 @@ What we are explicitly NOT doing in this feature. Promote anything controversial
 - Sign in with Apple / Google. Out of scope; future Inception.
 - Syncing conversations, personas, mini-apps, memory, or any on-device data the user has built up. Future Inception per data type.
 - Offline mode / queued auth attempts. Sign-in requires a working network; we surface that clearly when it isn't.
-- Migration of the (never-shipped) local profile from the superseded Inception. No mobile code from `260531-1719-sign-in-flow/` ever landed in production, so there is no on-device profile to migrate.
+- Migration of any locally-stored profile from the earlier (now-deleted) sign-in-flow Inception. No mobile code from that Inception ever landed in production, so there is no on-device profile to migrate.
 
 ## User stories
 
@@ -106,8 +106,8 @@ How we know this feature worked, after launch. At least one.
 Deadlines, dependencies, compliance, existing systems we must respect.
 
 - **BE shape is fixed.** The shipped BE's request/response shapes (`AuthResponse`, `ErrorEnvelope`, 401/400/409/429 mapping) are the contract — see [[api-contract]] for the canonical reference. Mobile mirrors the BE exactly; any divergence is a bug to fix on the mobile side.
-- **Secure token storage required.** The 30-day bearer is a high-value secret; storing it in plain `DataStore-Preferences` is unacceptable. Per-platform secure store is the bar. Re-opens [[../260531-1719-sign-in-flow/decisions#D4]] (100% commonMain stance) — see [[decisions#D2]].
-- **Sign-in goes before provider-picker / API-key onboarding.** Resolves [[../260531-1719-sign-in-flow/open-questions#Q6]] — identity first, then config. Sign-in is its own screen; no merging with the provider step. See [[decisions#D7]].
+- **Secure token storage required.** The 30-day bearer is a high-value secret; storing it in plain `DataStore-Preferences` is unacceptable. Per-platform secure store is the bar. Re-opens the earlier sign-in-flow Inception's D4 (100% commonMain stance) — see [[decisions#D2]].
+- **Sign-in goes before provider-picker / API-key onboarding.** Resolves the earlier sign-in-flow Inception's Q6 — identity first, then config. Sign-in is its own screen; no merging with the provider step. See [[decisions#D7]].
 - **No new BE work in this Inception.** All endpoints already exist. If we discover we need PATCH /v1/me or anything else, we surface it back into a new BE Inception, not bolt it on here.
 
 ## Links
@@ -118,5 +118,5 @@ Deadlines, dependencies, compliance, existing systems we must respect.
 - Out of scope: [[out-of-scope]]
 - Project-wide context: [[../../CONTEXT]]
 - Backend Inception: [[../260531-1733-backend-bootstrap-auth/PRD]]
-- Superseded predecessor: [[../260531-1719-sign-in-flow/PRD]]
+- Superseded predecessor: the earlier sign-in-flow Inception
 - Issues: `./issues/`

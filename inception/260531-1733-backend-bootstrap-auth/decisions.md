@@ -36,7 +36,7 @@ tags:
 - **Consequences:**
   - Users who forget their password are locked out until forgot-password ships. Mitigation: scope is closed-beta-ish; the lockout risk is bounded.
   - We must hash passwords properly (argon2id default — Construction confirms). PRD Story 3 AC enforces "stored as a salted hash, never as plain text."
-  - The local sign-in screen built in [[../260531-1719-sign-in-flow/]] does not currently collect a password. The mobile-wiring follow-up Inception will reshape it.
+  - The local sign-in screen built in the earlier sign-in-flow Inception does not currently collect a password. The mobile-wiring follow-up Inception will reshape it.
 
 ### D3 — Sessions are opaque, server-stored, long-lived (30 days), no refresh tokens in v1 — 2026-05-31
 
@@ -55,7 +55,7 @@ tags:
 - **Decision:** BE-only.
 - **Why:** Lets the BE team iterate freely on the endpoint shape without coordinating with the mobile lanes. The api-contract here becomes the public surface mobile binds against in a follow-up. Lower coordination cost during a high-uncertainty bootstrap.
 - **Consequences:**
-  - The existing [[../260531-1719-sign-in-flow]] feature does not call this BE; both ship into the app independently. The mobile-wiring Inception is named in [[out-of-scope]].
+  - The existing the earlier sign-in-flow Inception feature does not call this BE; both ship into the app independently. The mobile-wiring Inception is named in [[out-of-scope]].
   - This Inception's `issues/` tree is entirely `backend/` — no other lane directories.
 
 ### D5 — Tech stack: Ktor on JVM; storage: Railway Postgres; deploy: Railway from GitHub `main` — 2026-05-31

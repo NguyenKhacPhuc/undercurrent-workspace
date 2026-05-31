@@ -12,7 +12,7 @@ tags:
 # Mobile auth wiring — feature index
 
 > [!info] **Status:** Draft / awaiting mob review
-> Replaces the superseded [[../260531-1719-sign-in-flow/_index]] now that the BE has shipped. See [[decisions#D1]].
+> Replaces the earlier (now-deleted) sign-in-flow Inception now that the BE has shipped. See [[decisions#D1]].
 
 ## Quick links
 
@@ -23,7 +23,7 @@ tags:
 - Out of scope: [[out-of-scope]]
 - Project-wide context: [[../../CONTEXT]]
 - Backend Inception: [[../260531-1733-backend-bootstrap-auth/_index]]
-- Superseded predecessor: [[../260531-1719-sign-in-flow/_index]]
+- Superseded predecessor: the earlier sign-in-flow Inception
 
 ---
 

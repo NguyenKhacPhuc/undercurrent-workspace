@@ -18,7 +18,7 @@ tags:
 - **Mobile-client integration of these endpoints.** The mobile sign-in screen does not call the BE in this release; that's a separate Inception. Driver decision; see [[decisions#D4]].
 - **Sign in with Apple / Google / any third-party identity.** Email + password only in v1. The schema and endpoint shape DO leave room to add third-party identities to the same account record later, but no work is done now.
 - **Sync of conversations, personas, mini-apps, memory, or any other on-device data.** Future Inceptions, each on its own.
-- **Profile edit (display name / email) from the BE side.** No `PATCH /v1/me`. Edits happen only locally per [[../260531-1719-sign-in-flow/]]; cross-device propagation comes with a future sync Inception.
+- **Profile edit (display name / email) from the BE side.** No `PATCH /v1/me`. Edits happen only locally per the earlier sign-in-flow Inception; cross-device propagation comes with a future sync Inception.
 - **Multi-account on a single install.** v1 BE supports a single signed-in account per session token; the client only persists one at a time.
 - **Account deletion / wipe.** No `DELETE /v1/me`. Compliance (GDPR-style "delete my data") will land in a separate Inception once we have actual users.
 - **Per-IP rate limiting.** Story 7 covers per-email rate limiting only. Adding per-IP needs proxy-header trust setup behind Railway, which we are NOT doing in v1.

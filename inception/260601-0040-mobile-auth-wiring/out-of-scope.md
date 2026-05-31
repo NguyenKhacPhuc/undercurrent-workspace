@@ -17,7 +17,7 @@ tags:
 - **Email verification.** BE accepts unverified emails; mobile shows whatever the server returns.
 - **Sign in with Apple / Google / any third-party identity.** Future Inception once the BE adds OAuth.
 - **Sync of conversations, personas, mini-apps, memory.** Each gets its own Inception once we have an authed identity to scope them to.
-- **Migration from the (never-shipped) local `UserProfile` from [[../260531-1719-sign-in-flow/PRD]].** None of that code ever landed in production, so there's nothing on-device to migrate.
+- **Migration from the (never-shipped) local `UserProfile` from the earlier sign-in-flow Inception.** None of that code ever landed in production, so there's nothing on-device to migrate.
 - **Offline mode / queued auth attempts.** Sign-in needs a working network. We surface that clearly when it isn't (Story 1 AC).
 - **App-wide connectivity banner.** Belongs in a connectivity Inception, not this one.
 - **Rate-limit countdown timer.** Per [[decisions#D5]], the 429 message is plain — no live countdown.

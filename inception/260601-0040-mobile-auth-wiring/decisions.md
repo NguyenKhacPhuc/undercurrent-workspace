@@ -16,7 +16,7 @@ tags:
 
 ### D1 — Mobile-auth is a new Inception, not a revision of the superseded sign-in-flow — 2026-06-01
 
-- **Context:** The `backend-bootstrap-auth` shipped end-to-end on 2026-06-01, inverting the premise of [[../260531-1719-sign-in-flow/PRD]] ("No backend"). The path forward had to choose between revising the old Inception in place or starting a new one.
+- **Context:** The `backend-bootstrap-auth` shipped end-to-end on 2026-06-01, inverting the premise of the earlier sign-in-flow Inception ("No backend"). The path forward had to choose between revising the old Inception in place or starting a new one.
 - **Options considered:** (a) revise in place; (b) supersede + start new; (c) audit-only / defer.
 - **Decision:** (b). The old folder is read-only, banner-marked superseded, stories flipped to `status: superseded`. This Inception lives at `260601-0040-mobile-auth-wiring/`.
 - **Why:** The old Inception's D1–D4 were defensible under "BE dormant"; rewriting them erases the historical context. Also matches [[../260531-1733-backend-bootstrap-auth/decisions#D4]] exactly: "a follow-up mobile-wiring Inception will reshape the sign-in screen."
@@ -64,7 +64,7 @@ tags:
 
 ### D7 — Onboarding order: sign-in / register first, then provider / API-key — 2026-06-01
 
-- **Context:** Resolves [[../260531-1719-sign-in-flow/open-questions#Q6]]. Today fresh installs see a provider-picker + API-key paste flow. Where does sign-in go?
+- **Context:** Resolves the earlier sign-in-flow Inception's Q6. Today fresh installs see a provider-picker + API-key paste flow. Where does sign-in go?
 - **Options considered:** Sign-in first then provider; provider first then sign-in; one combined carousel; defer to mob.
 - **Decision:** Sign-in first, then the existing provider/key step. Two distinct screens; no merging.
 - **Why:** Identity-before-config is the mental model the BE-backed world assumes. The two are independently meaningful (the user IS someone before they have a provider configured).
