@@ -105,5 +105,5 @@ No `kmp-common/`, `android/`, `ios/`, or `substrate/` directories — BE-only th
 - [x] [[open-questions]] has zero unresolved items. *(All 8 resolved 2026-05-31.)*
 - [x] [[PRD]] has at least one success metric. *(three — uptime, sign-up→authed latency P95, rate-limit trip count.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(Base URL pinned 2026-05-31.)*
-- [ ] End-to-end: from any computer with curl, a fresh sign-up → `/v1/me` → sign-out → `/v1/me` returns 200 then 401 sequence works against the deployed URL. *(Pending: run the smoke after PR #9 deploys.)*
+- [x] End-to-end: from any computer with curl, a fresh sign-up → `/v1/me` → sign-out → `/v1/me` returns 200 then 401 sequence works against the deployed URL. *(Smoked 2026-06-01 — all 7 probes match api-contract. Required PR #10 `fix: Db.toJdbcUrl parses libpq-style user:pass@` to clear the post-merge deploy crash.)*
 - [x] Workspace `CLAUDE.md` lane table reflects the now-live `backend` lane. *(Done in story 01.)*
