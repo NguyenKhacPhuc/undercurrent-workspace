@@ -89,14 +89,19 @@ git push
 
 ## AI-SDLC workflow
 
-Feature planning runs through [`ai-sdlc`](https://github.com/NguyenKhacPhuc/simple-ai-sdlc),
-a Claude Code plugin that drives a feature from raw intent to per-lane
-parallel-ready issues with acceptance criteria.
+Feature planning runs through `inception` + `construct` — Claude Code
+skills committed at [`.claude/skills/`](.claude/skills/). Anyone who
+clones the workspace gets them automatically; no `/plugin install`
+step. Canonical upstream:
+[`simple-ai-sdlc`](https://github.com/NguyenKhacPhuc/simple-ai-sdlc).
 
-**One-time setup** (Claude Code session):
+To pull updates from upstream:
 
-```
-/plugin install /Users/phucnguyen/Documents/simple-ai-sdlc/ai-sdlc
+```bash
+SRC=/path/to/simple-ai-sdlc/ai-sdlc/skills
+rsync -av --delete "$SRC/inception/" .claude/skills/inception/
+rsync -av --delete "$SRC/construct/"  .claude/skills/construct/
+git add .claude/skills && git commit -m "Bump ai-sdlc skills"
 ```
 
 **Per-feature flow:**
