@@ -26,12 +26,34 @@ tags:
 
 ## Acceptance criteria
 
-The contract Construction will satisfy. Observable and testable. Embed the relevant test in this list — do NOT split tests into trailing stories.
+The user-visible contract Construction will satisfy. Write each
+bullet as a **plain-language user outcome** — what someone using the
+app would see or be able to do. Construction translates these into
+test code (kotest Given/When/Then) in its red step.
 
-- [ ] <Given/When/Then or behavioral statement, framed in user or API terms>
-- [ ] <Edge case — empty, error, timeout, etc.>
-- [ ] Test for this slice exists and passes (Construction chooses the test shape).
-- [ ] The lane's standard build/test commands pass with no regressions. (See [CLAUDE.md](CLAUDE.md) or `<lane>/CLAUDE.md` for the exact commands.)
+**Rules for AC bullets:**
+
+- Use user-facing nouns and verbs only ("pin a conversation",
+  "the conversation list", "the pin icon"). No field names
+  (`pinnedAtMs`), no class names (`ConversationsViewModel`), no test
+  framing (`Given X When Y Then Z`).
+- Each bullet stands on its own as a sentence a product person would
+  read. If a non-engineer can't follow it, rewrite.
+- Cover the happy path AND the obvious edge cases (empty, error,
+  user cancels mid-flow, two-of-them, etc.) — Construction won't
+  invent edge cases for you.
+
+```markdown
+- [ ] Pinned conversations appear at the top of the conversations list.
+- [ ] Tapping the pin icon on an already-pinned conversation removes the pin.
+- [ ] When multiple conversations are pinned, the most-recently-pinned one is first.
+- [ ] Pin state survives app restart.
+```
+
+Two procedural bullets are added by Construction (not Inception):
+
+- Test for this slice exists and passes (Construction chooses the test shape).
+- The lane's standard build/test commands pass with no regressions. (See [CLAUDE.md](CLAUDE.md) or `<lane>/CLAUDE.md` for the exact commands.)
 
 ## Blocked by
 

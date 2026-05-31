@@ -163,6 +163,20 @@ Turbine + `kotlinx-coroutines-test` into every KMP library's
 `commonTest`; MockK + kotest-runner-junit5 in `androidUnitTest`. No
 per-module test deps to add.
 
+**Translating user-facing AC into test code.** Inception's
+acceptance criteria are written as plain-language user outcomes,
+NOT as `Given/When/Then`. Construction picks the test framing:
+
+| Inception AC (plain language) | Construct's red (kotest) |
+|---|---|
+| "Pinned conversations appear at the top of the list." | `Given("a list with one pinned + two unpinned conversations") { Then("the pinned one is first") { … } }` |
+| "Tapping the pin icon on an already-pinned conversation removes the pin." | `Given("a pinned conversation") { When("TogglePin is dispatched") { Then("pinnedAtMs becomes null and order reverts") { … } } }` |
+
+You choose the `Given/When/Then` chunking that fits the test
+naturally — sometimes one AC bullet becomes one nested triple, often
+several bullets share a `Given` and split at `When` / `Then`. The
+test count doesn't have to match the AC bullet count.
+
 **Where the test lives:**
 
 | Lane | Test source set | Stack |

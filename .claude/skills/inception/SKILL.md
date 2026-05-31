@@ -150,24 +150,32 @@ draft the full `api-contract.md` per the template. For each endpoint:
 
 ### Step 5 — Cut per-lane stories
 
-> [!important] **Stories, not implementation manuals.**
+> [!important] **Stories are USER STORIES. Plain language, no technical leak.**
 >
-> Inception ends at *what user-observable behavior this slice delivers*. **Construction owns the breakdown into tech tasks** — it inspects the lane's CLAUDE.md, picks libraries, sequences the TDD loop, and opens the PR.
+> Inception describes *what a person using the app would see or be able to do*. **Construction owns everything technical** — class shapes, test framing, library choices, file layout, DI wiring, the TDD loop.
 >
-> A story therefore must NOT contain:
+> A story body must NOT contain:
 >
+> - Class / function / field names (`ConversationsViewModel`, `pinnedAtMs`)
 > - Library names, framework choices, DI registration snippets, code blocks
 > - "Implementation steps" prescribed file-by-file
-> - "Files to touch" as a contract (a non-binding *hint* is fine)
+> - **Test framing** — no `Given … When … Then …` in acceptance criteria; that's a test shape Construction will translate the user-facing AC into during its red step
+> - "Files to touch" as a contract (a non-binding *hint* is fine, in the Hints section)
 >
-> A story MUST contain:
+> A story body MUST contain:
 >
-> - User-observable behavior (or, for plumbing-only slices, the public-facing API surface and its observable contract)
-> - Acceptance criteria framed in user / API / behavior terms — testable, but the test *shape* is Construction's call
-> - Reference to the PRD section + the api-contract section it consumes
+> - User-observable behavior (or, for plumbing-only slices, the public-facing API surface and its observable contract — still in domain terms)
+> - Acceptance criteria as **plain-language user outcomes** — each bullet readable by a product person, no engineer jargon
+> - Reference to the PRD section + the api-contract section it consumes (if any)
 > - `Blocked by:` wikilinks to other stories in the same lane
 >
-> If you find yourself writing `class XxxApi` or `single { ... }` in the story body — stop. That's Construction's job. Restate it as the behavior the API consumer will observe.
+> Sanity check: read each AC bullet aloud. If it sounds like a test
+> assertion (`vm.state.value.pinnedAt shouldBe …`) or names a class,
+> rewrite. If a non-engineer can follow it, ship it.
+>
+> If you find yourself writing `class XxxApi`, `Given/When/Then`, or
+> `single { ... }` in the story body — stop. That's Construction's
+> job.
 
 For each **lane** the feature actually touches, produce
 vertically-sliced **stories** in `<feature-folder>/issues/<lane>/`.
