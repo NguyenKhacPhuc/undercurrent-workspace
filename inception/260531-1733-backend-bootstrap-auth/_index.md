@@ -101,9 +101,9 @@ No `kmp-common/`, `android/`, `ios/`, or `substrate/` directories — BE-only th
 
 ## Definition of done (whole feature)
 
-- [ ] All 9 issues have status `done` in their frontmatter.
+- [x] All 9 issues have status `done` in their frontmatter. *(All merged by 2026-05-31.)*
 - [x] [[open-questions]] has zero unresolved items. *(All 8 resolved 2026-05-31.)*
-- [ ] [[PRD]] has at least one success metric. *(currently: three — uptime, sign-up→authed latency P95, rate-limit trip count.)*
+- [x] [[PRD]] has at least one success metric. *(three — uptime, sign-up→authed latency P95, rate-limit trip count.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(Base URL pinned 2026-05-31.)*
-- [ ] End-to-end: from any computer with curl, a fresh sign-up → `/v1/me` → sign-out → `/v1/me` returns 200 then 401 sequence works against the deployed URL.
-- [ ] Workspace `CLAUDE.md` lane table reflects the now-live `backend` lane. *(Owned by [[01-ktor-deploys-to-railway-with-health]].)*
+- [ ] End-to-end: from any computer with curl, a fresh sign-up → `/v1/me` → sign-out → `/v1/me` returns 200 then 401 sequence works against the deployed URL. *(Pending: run the smoke after PR #9 deploys.)*
+- [x] Workspace `CLAUDE.md` lane table reflects the now-live `backend` lane. *(Done in story 01.)*
