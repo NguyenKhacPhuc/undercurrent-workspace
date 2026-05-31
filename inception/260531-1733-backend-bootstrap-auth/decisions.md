@@ -117,6 +117,14 @@ tags:
 - **Why:** H2's `MODE=PostgreSQL` covers our v1 SQL surface (CREATE TABLE, primary keys, basic INSERT/SELECT). Tests run in milliseconds, no Docker dependency for contributors. Cost is real but bounded: when a later story hits `INSERT ... ON CONFLICT`, `RETURNING`, `JSONB`, or other Postgres-specific syntax that H2 can't fake, we either rewrite the affected migration in portable form OR re-introduce real-Postgres tests via a different runtime (Colima) and the affected test moves there.
 - **Consequences:** Test-side SQL must be H2-compatible. Story 02's `schema_migrations` table uses `VARCHAR(255) PRIMARY KEY` + `TIMESTAMP DEFAULT CURRENT_TIMESTAMP` (portable) instead of `TEXT PRIMARY KEY` + `TIMESTAMPTZ DEFAULT now()` (Postgres-only). Future BE devs may not have Docker; that's now fine. The Inception out-of-scope note about "test-stack reckoning" probably still happens — when it does, we pick Colima or Postgres-via-CI, not back to Docker Desktop + Testcontainers.
 
+### D12 — Password hashing library: password4j (added during Construction of Story 05) — 2026-05-31
+
+- **Context:** Stories 05 (sign-up) and 06 (sign-in) need a password hashing scheme. Inception D2 mandated email+password auth; the hashing scheme itself was left to Construction.
+- **Options considered:** `de.mkammerer:argon2-jvm` (native bindings, fast), `com.password4j:password4j` (pure Java, also wraps argon2id), `org.springframework.security:spring-security-crypto` (heavy, pulls Spring deps), hand-rolled with `javax.crypto.spec.PBEKeySpec` (don't).
+- **Decision:** `com.password4j:password4j` 1.8.2. Pure Java, no native bindings (matters because Railway's Railpack image may not have the native libs argon2-jvm expects), supports argon2id with sensible defaults, ~150KB jar.
+- **Why:** No native lib = no deploy headaches. Argon2id is the OWASP-recommended hashing scheme for passwords. password4j's API is small enough that swapping libs later is trivial if needed.
+- **Consequences:** All password hashes in `accounts.password_hash` are argon2id PHC-strings (`$argon2id$v=19$m=...$t=...$p=...$salt$hash`). Rotating the hashing scheme later is a write-on-next-sign-in concern (catch on validate, rehash with new params, write back). Not in v1 scope.
+
 ---
 
 *(Future entries appended as the mob ratifies / overrides / adds.)*
