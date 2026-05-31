@@ -101,13 +101,21 @@ tags:
 - **Why:** Cheaper to start. The driver is comfortable with the regression risk at v1 scale and would rather add CI when there's a second contributor or a regression actually happens.
 - **Consequences:** A broken `main` will deploy. Mitigations: only one contributor at v1; local-test discipline; the `/health` endpoint will visibly fail in UptimeRobot if a regression breaks startup. Add a CI workflow when the team grows OR after the first prod regression — whichever comes first.
 
-### D10 — Test-stack for DB code: Testcontainers Postgres (added during Construction of Story 02) — 2026-05-31
+### D10 — Test-stack for DB code: Testcontainers Postgres (added during Construction of Story 02) — 2026-05-31 — **SUPERSEDED by D11**
 
 - **Context:** Story 02's migration runner needs DB-roundtrip tests. Choices weighed during Construction: Testcontainers, H2 in Postgres-compat mode, or skip-and-rely-on-deploy.
 - **Options considered:** Testcontainers (real Postgres in Docker); H2 with `MODE=PostgreSQL` (~80% compat); skip DB tests entirely.
 - **Decision:** Testcontainers. `org.postgresql:postgresql` 42.7.4 added as runtime dep; `org.testcontainers:postgresql` + `:junit-jupiter` 1.20.4 as test-only deps.
 - **Why:** Most accurate signal — tests exercise the same SQL semantics production sees. The driver is comfortable with Docker as a local dependency. H2's compat gap would have bitten us by Story 04 (sessions table) when we want `INSERT ... ON CONFLICT` or `RETURNING`.
 - **Consequences:** Anyone running the BE tests needs Docker installed and running. Without CI (per D9), that's only the driver's machine; acceptable. Tests are slower than H2 would be (~5-10s for Postgres container spin-up), but tolerable for a small suite.
+
+### D11 — Pivot from Testcontainers to H2 (Postgres mode) for DB tests — 2026-05-31
+
+- **Context:** D10 picked Testcontainers, but during Story 02 Construction, docker-java (Testcontainers' underlying client) could not connect to the host's Docker daemon. Docker Desktop's helper socket at `~/.docker/run/docker.sock` returns a "redirect" response (status 400 with a `com.docker.desktop.address` label) instead of real engine info. All three of docker-java's discovery strategies (`EnvironmentAndSystemProperty`, `UnixSocket`, `DockerDesktop`) misread this as failure. Enabling Docker Desktop's "Allow the default Docker socket" advanced setting did not resolve it. Bumping Testcontainers to 1.21.3 also did not help.
+- **Options considered:** Keep fighting Docker Desktop / docker-java; switch to Colima (different runtime); pivot to H2 in Postgres-compat mode; skip DB tests entirely.
+- **Decision:** Pivot to H2 in Postgres-compat mode. `com.h2database:h2 2.3.232` as testImplementation; Testcontainers deps removed.
+- **Why:** H2's `MODE=PostgreSQL` covers our v1 SQL surface (CREATE TABLE, primary keys, basic INSERT/SELECT). Tests run in milliseconds, no Docker dependency for contributors. Cost is real but bounded: when a later story hits `INSERT ... ON CONFLICT`, `RETURNING`, `JSONB`, or other Postgres-specific syntax that H2 can't fake, we either rewrite the affected migration in portable form OR re-introduce real-Postgres tests via a different runtime (Colima) and the affected test moves there.
+- **Consequences:** Test-side SQL must be H2-compatible. Story 02's `schema_migrations` table uses `VARCHAR(255) PRIMARY KEY` + `TIMESTAMP DEFAULT CURRENT_TIMESTAMP` (portable) instead of `TEXT PRIMARY KEY` + `TIMESTAMPTZ DEFAULT now()` (Postgres-only). Future BE devs may not have Docker; that's now fine. The Inception out-of-scope note about "test-stack reckoning" probably still happens — when it does, we pick Colima or Postgres-via-CI, not back to Docker Desktop + Testcontainers.
 
 ---
 
