@@ -5,13 +5,39 @@ description: Run the AI-SDLC Inception phase. Drive a feature from raw intent to
 
 # Inception phase
 
-You are the driver's AI partner during the **Inception phase** of AI-SDLC. Your job is to transform a raw feature intent into a set of artifacts that let Backend, Android, and iOS engineers grab work and start in parallel.
+You are the driver's AI partner during the **Inception phase** of AI-SDLC. Your job is to transform a raw feature intent into a set of artifacts that let engineers in each lane grab work and start in parallel.
 
 ## Operating model
 
 > AI plans → seeks clarification → produces drafts. Humans (driver now, mob later) decide.
 
 You work with **one person** (the driver). Anything you cannot resolve with the driver alone goes into `open-questions.md` for the mob to answer in review. **Do not invent answers** to questions only the team can resolve (priority, scope, business rules, brand decisions, BE capabilities you cannot verify).
+
+## Project context (Undercurrent — Android + iOS KMP)
+
+This is a forked copy of the upstream Inception skill, adapted for
+the Undercurrent workspace. Key adaptations:
+
+- **Workspace + two submodules** — artifacts land in
+  `undercurrent-workspace/inception/<feature>/`, NOT inside either
+  submodule. Code work (Construction) happens inside `weft/` or
+  `undercurrent/`.
+- **Lanes:** `kmp-common`, `android`, `ios`, `substrate`, `backend`
+  (backend dormant). See `undercurrent-workspace/CLAUDE.md` for the
+  lane → CLAUDE.md mapping.
+- **`kmp-common` is the default lane for new feature work.** Most
+  slices are 80% commonMain (shared `ViewModel`, `Screen`,
+  `Repository` interface). Don't artificially split commonMain work
+  into "android" + "ios" stories that both write the same code —
+  create one `kmp-common` story for the shared work, then
+  per-platform stories only when there's genuinely platform-specific
+  work (Android Weft impl, iOS Keychain impl, etc.).
+- **Backend lane is dormant.** Step 1.3's BE question defaults to
+  "no" — see that step. Will re-engage when auth / sync /
+  multi-device ships.
+- **Testing style is BDD with kotest** — your acceptance criteria
+  can reference `Given/When/Then` framing if useful. See
+  `undercurrent/CLAUDE.md` for the full test stack.
 
 ## Repo layout
 
@@ -71,9 +97,10 @@ Ask the driver, in this order, one at a time. Stop and wait after each. Offer th
 
 1. **One-line intent.** "In one sentence, what are we building?"
 2. **Why now?** "What problem does this solve, and for whom?"
-3. **Does this touch the backend?** (yes / no / not sure → treat as yes)
-4. **Which platforms?** (Android, iOS, both)
-5. **Any hard constraints?** (deadline, existing systems, compliance)
+3. **Does this touch the backend?** Default to **no** for this project — undercurrent has no BE today; LLM providers are external APIs. Only flip to yes if the driver explicitly names a server-side need (e.g. auth, sync, multi-device). When BE arrives, this default flips.
+4. **Which platforms?** Android, iOS, or both (default: both — undercurrent ships KMP). Also ask: "Is this work primarily commonMain (KMP-shared), or does it have meaningful platform-specific impls?" — this determines whether you'll cut one `kmp-common` story or split per platform.
+5. **Does this touch the substrate?** (yes / no / unsure → no) Substrate work goes in the `weft/` submodule — separate PR, separate `gh` remote. Most features don't need substrate changes.
+6. **Any hard constraints?** (deadline, existing systems, compliance)
 
 If the driver gives a vague or contradictory answer, push back. Don't accept "make it good" — ask what specifically they mean.
 
@@ -99,9 +126,20 @@ If the driver doesn't know, write the question to `open-questions.md` with the d
 
 **Don't bloat CONTEXT.md** — every term must earn its place by replacing a longer phrase the team would otherwise repeat. Cite Matt Pocock's rule: a shared language exists to reduce verbosity.
 
-### Step 4 — Draft the API contract (if BE involved)
+### Step 4 — Draft the API contract (only if BE involved — usually skip)
 
-If step 1.3 was yes, draft `api-contract.md`. For each endpoint:
+For current Undercurrent features, BE is dormant — skip this step
+and write the single-line callout in `api-contract.md`:
+
+```
+> [!success] **No backend changes** — feature is purely client-side.
+```
+
+Set `backend-work: false` in the frontmatter.
+
+If step 1.3 was yes (auth / sync / multi-device starting to land),
+draft the full `api-contract.md` per the template. For each endpoint:
+
 - Method + path
 - Request shape (markdown table or fenced block)
 - Response shape (success + error envelope)
@@ -109,8 +147,6 @@ If step 1.3 was yes, draft `api-contract.md`. For each endpoint:
 - Notes on idempotency, pagination, rate limits if relevant
 
 **Mark every uncertain field `TBD`** and add a corresponding entry to `open-questions.md`. The contract is "done" when no `TBD`s remain.
-
-If no BE work, skip this step and write a single line in `api-contract.md`: "No backend changes — feature is purely client-side."
 
 ### Step 5 — Cut per-lane stories
 
@@ -133,7 +169,25 @@ If no BE work, skip this step and write a single line in `api-contract.md`: "No 
 >
 > If you find yourself writing `class XxxApi` or `single { ... }` in the story body — stop. That's Construction's job. Restate it as the behavior the API consumer will observe.
 
-For each platform actually present in the project (BE, Android, iOS, web…), produce vertically-sliced **stories** in `<feature-folder>/issues/<lane>/`. Use [`templates/issues/story.md`](templates/issues/story.md) — one shape across all lanes; the lane is just a tag.
+For each **lane** the feature actually touches, produce
+vertically-sliced **stories** in `<feature-folder>/issues/<lane>/`.
+Use [`templates/issues/story.md`](templates/issues/story.md) — one
+shape across all lanes; the lane is just a tag.
+
+**Lane menu for Undercurrent:**
+
+| Lane | When to use |
+|---|---|
+| `kmp-common` | Shared `commonMain` work — `ViewModel`, `Screen`, `Repository` interface, domain types. **Default for new feature work.** |
+| `android` | Android-specific impl — `androidMain` source set (e.g. wrapping a Weft substrate API, an Android-only permission flow). |
+| `ios` | iOS-specific impl — `iosMain` source set (e.g. Keychain access, `SFSpeechRecognizer`, iOS-only platform code). |
+| `substrate` | Work in the `weft/` submodule — new substrate capability, new built-in `WeftTool`, new compose component. Separate PR in `weft/`. |
+| `backend` | (dormant for now — only if step 1.3 was yes) |
+
+**Don't create a per-platform story for shared work.** If both Android
+and iOS are getting the same `ViewModel` + `Screen`, that's *one*
+`kmp-common` story. Split per-platform only when the impl is genuinely
+divergent.
 
 **Sizing rule.** Each story is *one PR's worth* of behavior — one user-observable slice, runnable in ~30–90 minutes of focused Construction work (TDD loop included). **If you can't state the story's outcome in one sentence without "and", split it.** A foundation slice like "extend the data model + add a service + integrate in 3 places" is not one story — it's three or four (each with its own visible-from-outside behavior).
 
@@ -141,9 +195,18 @@ For each platform actually present in the project (BE, Android, iOS, web…), pr
 
 **Within-lane sequencing is allowed.** A foundation story (e.g. "data model gains an `imagePath` column") can precede the user-facing slice that consumes it. Capture this in `Blocked by`. Do not collapse foundation work into the first user-facing story — that makes the first one huge and Construction can't slice it cleanly.
 
-**Skip lanes that don't exist in the project.** Inspect before assuming. If `settings.gradle.kts` only includes `:app`, there is no iOS lane; don't create an empty `issues/ios/`.
+**Skip lanes that don't apply to this feature.** Don't create empty
+`issues/<lane>/` directories. For most current features the
+`issues/` tree is just `{kmp-common, android, ios}` (a subset);
+`backend/` stays absent until BE arrives.
 
-**One stack-related check still belongs here.** Even though Inception doesn't pick libraries, your *acceptance criteria* should reference the lane's actual test/build commands (e.g. `./gradlew :app:testDebugUnitTest :app:assembleDebug`). To do that without guessing, glance at the lane's CLAUDE.md (or the build manifest if no CLAUDE.md exists) for the canonical commands. If neither exists, ask the driver and offer to scaffold a CLAUDE.md as part of this Inception.
+**Acceptance criteria reference the lane's verify commands.** Pull
+them from the lane's CLAUDE.md (`undercurrent/CLAUDE.md` for
+`{android, ios, kmp-common}`, `weft/CLAUDE.md` for `substrate`). For
+`kmp-common` work the verify must include **both** target compiles
+(`compileDebugKotlinAndroid` + `compileKotlinIosSimulatorArm64`) plus
+the module's `test` task — that's how we catch
+Android-only-API-leaks-into-commonMain.
 
 ### Step 6 — Surface decisions and out-of-scope
 

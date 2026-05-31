@@ -92,16 +92,20 @@ git push
 Feature planning runs through `inception` + `construct` — Claude Code
 skills committed at [`.claude/skills/`](.claude/skills/). Anyone who
 clones the workspace gets them automatically; no `/plugin install`
-step. Canonical upstream:
-[`simple-ai-sdlc`](https://github.com/NguyenKhacPhuc/simple-ai-sdlc).
+step.
 
-To pull updates from upstream:
+**These are forked copies**, not pristine mirrors of
+[`simple-ai-sdlc`](https://github.com/NguyenKhacPhuc/simple-ai-sdlc).
+Project-specific behavior is baked in (no backend lane, kmp-common
+as default lane, BDD with kotest as the test style, markdown-only
+issue state since we haven't deployed orchestration-mcp, two-submodule
+gh discipline). To pull selective upstream changes:
 
 ```bash
 SRC=/path/to/simple-ai-sdlc/ai-sdlc/skills
-rsync -av --delete "$SRC/inception/" .claude/skills/inception/
-rsync -av --delete "$SRC/construct/"  .claude/skills/construct/
-git add .claude/skills && git commit -m "Bump ai-sdlc skills"
+diff -ru "$SRC/inception/SKILL.md" .claude/skills/inception/SKILL.md
+diff -ru "$SRC/construct/SKILL.md" .claude/skills/construct/SKILL.md
+# … manually merge wanted upstream changes
 ```
 
 **Per-feature flow:**
