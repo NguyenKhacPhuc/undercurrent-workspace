@@ -1,0 +1,6 @@
+[submodule "weft"]
+	path = weft
+	url = https://github.com/NguyenKhacPhuc/android-harness.git
+[submodule "undercurrent"]
+	path = undercurrent
+	url = https://github.com/NguyenKhacPhuc/undercurrent.git
