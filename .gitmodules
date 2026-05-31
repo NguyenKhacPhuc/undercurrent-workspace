@@ -4,3 +4,6 @@
 [submodule "undercurrent"]
 	path = undercurrent
 	url = https://github.com/NguyenKhacPhuc/undercurrent.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/NguyenKhacPhuc/undercurrent-backend.git
