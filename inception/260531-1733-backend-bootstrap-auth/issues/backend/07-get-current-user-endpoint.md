@@ -2,7 +2,8 @@
 type: issue
 feature: backend-bootstrap-auth
 lane: backend
-status: ready
+status: in-progress
+claimed-by: NguyenKhacPhuc
 wave: 3
 estimate: 30m
 blocked-by:
@@ -12,7 +13,7 @@ tags:
   - inception/issue
   - lane/backend
   - feature/backend-bootstrap-auth
-  - status/ready
+  - status/in-progress
   - wave/3
 ---
 
