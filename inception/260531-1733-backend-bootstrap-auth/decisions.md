@@ -101,6 +101,14 @@ tags:
 - **Why:** Cheaper to start. The driver is comfortable with the regression risk at v1 scale and would rather add CI when there's a second contributor or a regression actually happens.
 - **Consequences:** A broken `main` will deploy. Mitigations: only one contributor at v1; local-test discipline; the `/health` endpoint will visibly fail in UptimeRobot if a regression breaks startup. Add a CI workflow when the team grows OR after the first prod regression — whichever comes first.
 
+### D10 — Test-stack for DB code: Testcontainers Postgres (added during Construction of Story 02) — 2026-05-31
+
+- **Context:** Story 02's migration runner needs DB-roundtrip tests. Choices weighed during Construction: Testcontainers, H2 in Postgres-compat mode, or skip-and-rely-on-deploy.
+- **Options considered:** Testcontainers (real Postgres in Docker); H2 with `MODE=PostgreSQL` (~80% compat); skip DB tests entirely.
+- **Decision:** Testcontainers. `org.postgresql:postgresql` 42.7.4 added as runtime dep; `org.testcontainers:postgresql` + `:junit-jupiter` 1.20.4 as test-only deps.
+- **Why:** Most accurate signal — tests exercise the same SQL semantics production sees. The driver is comfortable with Docker as a local dependency. H2's compat gap would have bitten us by Story 04 (sessions table) when we want `INSERT ... ON CONFLICT` or `RETURNING`.
+- **Consequences:** Anyone running the BE tests needs Docker installed and running. Without CI (per D9), that's only the driver's machine; acceptable. Tests are slower than H2 would be (~5-10s for Postgres container spin-up), but tolerable for a small suite.
+
 ---
 
 *(Future entries appended as the mob ratifies / overrides / adds.)*
