@@ -34,6 +34,10 @@ Shared language for Undercurrent. Every term here must earn its place by replaci
 | **Repository** | A `*Repository` interface in `:core:domain`. Replaces the legacy "Gateway" name. Concrete impls per platform under `:core:domain/{androidMain,iosMain}`. | "the app's data port" |
 | **Route** | The stateful entry-point Composable per feature (`<Name>Route`). `ScreenRouter` calls these; they own DI + intent dispatch. | "the screen's wrapper Composable" |
 | **Screen** | The stateless Composable that renders state + emits callbacks. Previewable; takes no DI. | "the actual UI" |
+| **User profile** | The locally-captured identity for the person using this install — currently `displayName` + `email`. Distinct from a server-backed *Account* (see below); they are NOT the same record. | "the local identity" |
+| **Account** | The server-side identity record owned by the backend. Has a stable id (`acct.<uuid12>`), email (unique, lowercased), display name, and a `password_hash`. Introduced by the backend-bootstrap-auth Inception (`inception/260531-1733-backend-bootstrap-auth/`). | "the server-side user record" |
+| **Session** | An opaque, server-stored token that authenticates a single device's requests against the BE. Issued by sign-up / sign-in; invalidated by sign-out; 30-day TTL. **Distinct from `Memory` scope `SESSION`** which means "this conversation". | "the BE auth token" |
+| **Backend submodule** | The third workspace submodule at `backend/`, sibling to `weft/` and `undercurrent/`. Owns the Ktor app, Postgres schema, and the Railway deploy. | "the BE repo" |
 | **Driver** | The one person running Inception with the AI partner between mob-review sessions. | — |
 | **Mob** | The full team (Android + iOS) that reviews + answers `open-questions.md`. | — |
 
@@ -90,6 +94,29 @@ The shape of the things Undercurrent reasons about. Not Repository API shapes �
 - **Key fields:** `conversationId`, `startEpochMs`, `endEpochMs`, `userMessage`, `finalAssistantMessage`, `status` (`RUNNING` / `COMPLETED` / `FAILED`), `feedback` (`NONE` / `THUMBS_UP` / `THUMBS_DOWN`).
 - **Relationships:** Owns many LlmCallTrace + ToolCallTrace children.
 
+### Account
+
+- **What it is:** The server-side user record owned by the backend.
+- **Identifier:** String id `acct.<uuid12>`.
+- **Key fields:** `id`, `email` (unique, stored lowercased), `displayName` (≤ 40 chars), `passwordHash` (argon2id, never returned by any endpoint), `createdAtMs`.
+- **Lifecycle:** Created by `POST /v1/auth/sign-up`. Read by `GET /v1/me`. No edit, no delete, no email-verification in v1 (see `inception/260531-1733-backend-bootstrap-auth/out-of-scope.md`).
+- **Relationships:** Owns many Sessions. Lives in `backend/` only; the mobile clients never persist `passwordHash` and only mirror `id` + `displayName` + `email`.
+
+### Session
+
+- **What it is:** An opaque server-stored token authenticating a single device's requests.
+- **Identifier:** Random high-entropy string presented as `Authorization: Bearer <token>`.
+- **Key fields:** `token` (or its hash, depending on Construction's choice), `accountId`, `issuedAtMs`, `expiresAtMs` (issued+30d), `revokedAtMs?`.
+- **Lifecycle:** Issued by sign-up + sign-in. Validated by DB lookup on every authenticated request. Revoked by sign-out (sets `revokedAtMs`). Multi-session per account is supported (signing in on a second device does not revoke the first).
+
+### UserProfile
+
+- **What it is:** The signed-in user's locally-stored identity.
+- **Identifier:** Single global slot in DataStore-Preferences (one profile per install — no multi-account today).
+- **Key fields:** `displayName` (non-empty, ≤40 chars), `email` (loose format check).
+- **Lifecycle:** Created the first time the user completes the sign-in screen on a fresh install or upgrade-without-profile. Editable from Settings. Absence of a profile is what triggers the blocking sign-in screen on launch. Never deleted in v1.
+- **Relationships:** None today. Future BE-backed sync will need to anchor a server account to this profile (migration TBD when that lands).
+
 ### MemoryEntry
 
 - **What it is:** A long-lived fact the agent has stored.
@@ -102,7 +129,8 @@ The shape of the things Undercurrent reasons about. Not Repository API shapes �
 |---|---|
 | **Inception** | Phase-1 of AI-SDLC. Driver runs `/inception`; output is PRD + api-contract + per-lane issues with acceptance criteria. Done when `open-questions.md` is empty. |
 | **Construction** | Phase-2. A dev picks a ready issue (no unresolved `Blocked by:`) and builds TDD-style. One PR per issue. |
-| **Lane** | One of: `android`, `ios`, `backend`. Undercurrent uses only `android` + `ios`. Issues live in `inception/<feature>/issues/<lane>/`. |
+| **Lane** | One of: `kmp-common`, `android`, `ios`, `substrate`, `backend`. Issues live in `inception/<feature>/issues/<lane>/`. As of the backend-bootstrap-auth Inception (2026-05-31), the `backend` lane is no longer dormant. |
 | **Wave** | A dependency-grouped batch of issues. Wave 0 = "no blockers — start day 1". Higher waves wait for earlier waves to land. Documented in `_index.md`. |
 | **Mob review** | Synchronous read-through of Inception drafts by the whole team. Resolves `open-questions.md`. |
 | **Force-stop** | `adb shell am force-stop dev.weft.undercurrent` — needed when iterating on tools so `WeftRuntime` rebuilds its tool catalog. |
+| **Backend dormant** | *(Historical — superseded 2026-05-31 by the backend-bootstrap-auth Inception.)* The state of the `backend` lane before any BE Inception ran: no BE, all features client-only, BE-related Inception steps skipped. Term retained for past-feature context only. |
