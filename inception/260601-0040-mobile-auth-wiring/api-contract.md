@@ -19,7 +19,7 @@ tags:
 | `POST /v1/auth/sign-up` | public | Story 1 — register mode submit |
 | `POST /v1/auth/sign-in` | public | Story 1 — sign-in mode submit |
 | `GET /v1/me` | bearer | Story 3 — Settings → Account section render |
-| `POST /v1/auth/sign-out` | bearer (loose) | Story 3 — Sign Out tap |
+| `POST /v1/auth/sign-out` | bearer (loose) | Story 3 — Sign Out tap (200 with empty success envelope) |
 | `GET /health` | public | Optional — used as a connectivity probe? Currently no; we treat any non-200 from the auth endpoints as the connectivity signal. |
 
 ## Base URL
@@ -33,12 +33,14 @@ Opaque base64url string ~43 chars. Treated as a credential — never logged, nev
 ## Error envelope (what the client must parse on 4xx)
 
 ```json
-{ "error": { "code": "<machine_code>", "message": "<human message>", "details": object? } }
+{ "code": "<machine_code>", "message": "<human message>", "details": object? }
 ```
+
+Decoded into mobile's `BaseErrorResponse(code: String, message: String, details: Map<String, String>? = null)`.
 
 Error codes the client branches on:
 
-| `error.code` | When | Client UX |
+| `code` | When | Client UX |
 |---|---|---|
 | `invalid_request` | 400 on sign-up / sign-in | Inline error per field if `details` is populated; else show `message`. |
 | `email_already_registered` | 409 on sign-up | Inline message + "Switch to sign-in" shortcut with email pre-filled. |
@@ -47,24 +49,38 @@ Error codes the client branches on:
 
 ## Success shapes (subset the client cares about)
 
+All 2xx JSON responses are wrapped in `BaseResponse<T> { success, data, message, code }` — the client uses `safeApiCall { ... }` which unwraps `.data` to the payload below.
+
 ### `AuthResponse` (200 / 201 from sign-up / sign-in)
 
 ```json
 {
-  "account": { "id": "acct.<uuid12>", "displayName": "...", "email": "...", "createdAtMs": 1748707980000 },
-  "session": { "token": "<opaque>", "expiresAtMs": 1751299980000 }
+  "success": true,
+  "data": {
+    "account": { "id": "acct.<uuid12>", "displayName": "...", "email": "...", "createdAtMs": 1748707980000 },
+    "session": { "token": "<opaque>", "expiresAtMs": 1751299980000 }
+  },
+  "message": null,
+  "code": null
 }
 ```
 
 ### `GET /v1/me` 200
 
 ```json
-{ "account": { "id": "...", "displayName": "...", "email": "...", "createdAtMs": ... } }
+{
+  "success": true,
+  "data": { "account": { "id": "...", "displayName": "...", "email": "...", "createdAtMs": ... } },
+  "message": null,
+  "code": null
+}
 ```
 
-### `POST /v1/auth/sign-out` 204
+### `POST /v1/auth/sign-out` 200
 
-Empty body.
+```json
+{ "success": true, "data": null, "message": null, "code": null }
+```
 
 ## Validation rules — client mirrors BE
 

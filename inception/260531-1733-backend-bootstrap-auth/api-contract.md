@@ -20,9 +20,14 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 - **Auth:** Bearer token. `Authorization: Bearer <session-token>`. The token is opaque to clients (no JWT decoding) — see [[decisions#D3]].
 - **Base URL:** `https://undercurrent-backend-production.up.railway.app` *(pinned 2026-05-31 after Story 01 deploy; Railway-generated, custom domain deferred per Q1 resolution).*
 - **Path versioning:** all endpoints live under `/v1/`. Major-version bumps move to `/v2/`. No minor-version paths.
-- **Error envelope:** all non-2xx responses return
+- **Success envelope:** all 2xx JSON responses wrap the endpoint payload in
   ```json
-  { "error": { "code": "<machine_code>", "message": "<human message>", "details": { ... }? } }
+  { "success": true, "data": <payload>, "message": null, "code": null }
+  ```
+  `data` is the endpoint-specific shape (or `null` for endpoints with no payload, like sign-out). `message` and `code` are reserved for non-failing informational signals; both `null` in v1.
+- **Error envelope:** all non-2xx responses return a flat
+  ```json
+  { "code": "<machine_code>", "message": "<human message>", "details": { ... }? }
   ```
   `code` is a stable string; clients branch on it. `message` may change wording; clients show it. `details` is optional, error-specific, and may include validation field paths.
 - **Date format:** ISO 8601 UTC, e.g. `2026-05-31T17:33:00Z`.
@@ -71,22 +76,27 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 
 ```json
 {
-  "account": {
-    "id": "acct.<uuid12>",
-    "displayName": "Phuc",
-    "email": "phuc@example.com",
-    "createdAtMs": 1748707980000
+  "success": true,
+  "data": {
+    "account": {
+      "id": "acct.<uuid12>",
+      "displayName": "Phuc",
+      "email": "phuc@example.com",
+      "createdAtMs": 1748707980000
+    },
+    "session": {
+      "token": "<opaque>",
+      "expiresAtMs": 1751299980000
+    }
   },
-  "session": {
-    "token": "<opaque>",
-    "expiresAtMs": 1751299980000
-  }
+  "message": null,
+  "code": null
 }
 ```
 
 **Error responses:**
 
-| Code | When | `error.code` |
+| Code | When | `code` |
 |---|---|---|
 | 400 | missing/invalid fields | `invalid_request` |
 | 409 | email already has an account | `email_already_registered` |
@@ -119,25 +129,30 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 
 ```json
 {
-  "account": {
-    "id": "acct.<uuid12>",
-    "displayName": "Phuc",
-    "email": "phuc@example.com",
-    "createdAtMs": 1748707980000
+  "success": true,
+  "data": {
+    "account": {
+      "id": "acct.<uuid12>",
+      "displayName": "Phuc",
+      "email": "phuc@example.com",
+      "createdAtMs": 1748707980000
+    },
+    "session": {
+      "token": "<opaque>",
+      "expiresAtMs": 1751299980000
+    }
   },
-  "session": {
-    "token": "<opaque>",
-    "expiresAtMs": 1751299980000
-  }
+  "message": null,
+  "code": null
 }
 ```
 
 **Error responses:**
 
-| Code | When | `error.code` |
+| Code | When | `code` |
 |---|---|---|
 | 400 | missing fields | `invalid_request` |
-| 401 | wrong password OR unknown email | `unauthenticated` (same code + same `error.message` for both, to prevent enumeration) |
+| 401 | wrong password OR unknown email | `unauthenticated` (same `code` + same `message` for both, to prevent enumeration) |
 | 429 | rate-limited on this email | `rate_limited` (see Story 7) |
 
 **Notes:**
@@ -155,18 +170,23 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 
 ```json
 {
-  "account": {
-    "id": "acct.<uuid12>",
-    "displayName": "Phuc",
-    "email": "phuc@example.com",
-    "createdAtMs": 1748707980000
-  }
+  "success": true,
+  "data": {
+    "account": {
+      "id": "acct.<uuid12>",
+      "displayName": "Phuc",
+      "email": "phuc@example.com",
+      "createdAtMs": 1748707980000
+    }
+  },
+  "message": null,
+  "code": null
 }
 ```
 
 **Error responses:**
 
-| Code | When | `error.code` |
+| Code | When | `code` |
 |---|---|---|
 | 401 | missing / unknown / revoked / expired token | `unauthenticated` |
 
@@ -182,12 +202,16 @@ This is the first BE Inception in the workspace. There is no existing API shape 
 
 **Request:** none.
 
-**Success response (204):** empty body.
+**Success response (200):**
+
+```json
+{ "success": true, "data": null, "message": null, "code": null }
+```
 
 **Error responses:** none under normal use. See notes for why.
 
 **Notes:**
-- **Always 204.** Per PRD Story 6 AC: missing / unknown / already-invalid tokens still respond 204. The endpoint is idempotent and leaks no information.
+- **Always 200 with the empty success envelope.** Per PRD Story 6 AC: missing / unknown / already-invalid tokens still respond 200. The endpoint is idempotent and leaks no information.
 - Invalidates only the presented token, not all sessions of the account.
 
 ---
