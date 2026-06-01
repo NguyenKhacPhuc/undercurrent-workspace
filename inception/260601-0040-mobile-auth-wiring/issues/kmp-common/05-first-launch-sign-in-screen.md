@@ -2,7 +2,8 @@
 type: issue
 feature: mobile-auth-wiring
 lane: kmp-common
-status: ready
+status: in-progress
+claimed-by: NguyenKhacPhuc
 wave: 1
 estimate: 90m
 blocked-by:
@@ -12,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/mobile-auth-wiring
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 

@@ -2,8 +2,10 @@
 type: issue
 feature: mobile-auth-wiring
 lane: ios
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/3
+merged-at: 2026-06-01T07:27:48Z
 wave: 1
 estimate: 45m
 blocked-by:
@@ -12,7 +14,7 @@ tags:
   - inception/issue
   - lane/ios
   - feature/mobile-auth-wiring
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 
