@@ -2,7 +2,8 @@
 type: issue
 feature: mobile-auth-wiring
 lane: ios
-status: ready
+status: in-progress
+claimed-by: NguyenKhacPhuc
 wave: 1
 estimate: 45m
 blocked-by:
@@ -11,7 +12,7 @@ tags:
   - inception/issue
   - lane/ios
   - feature/mobile-auth-wiring
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 
