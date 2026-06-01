@@ -2,8 +2,10 @@
 type: issue
 feature: mobile-auth-wiring
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/6
+merged-at: 2026-06-01T10:07:39Z
 wave: 1
 estimate: 90m
 blocked-by:
@@ -13,7 +15,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/mobile-auth-wiring
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 
