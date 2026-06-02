@@ -2,7 +2,8 @@
 type: issue
 feature: html-mini-apps
 lane: substrate
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 1
 estimate: 75m
 blocked-by: 
@@ -11,7 +12,7 @@ tags:
   - inception/issue
   - lane/substrate
   - feature/html-mini-apps
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 
