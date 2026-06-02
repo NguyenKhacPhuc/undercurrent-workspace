@@ -40,6 +40,10 @@ Shared language for Undercurrent. Every term here must earn its place by replaci
 | **Backend submodule** | The third workspace submodule at `backend/`, sibling to `weft/` and `undercurrent/`. Owns the Ktor app, Postgres schema, and the Railway deploy. | "the BE repo" |
 | **Driver** | The one person running Inception with the AI partner between mob-review sessions. | — |
 | **Mob** | The full team (Android + iOS) that reviews + answers `open-questions.md`. | — |
+| **OS capability** | One device-or-OS action the SDK exposes to the agent through a uniform interface (secure storage, permissions, clipboard, sharing, location, camera, …). Has an Android impl and an iOS impl per platform; ~33 in the catalog. | "a device/OS-backed thing the agent can do" |
+| **One-call setup** | The single SDK entry point that returns a fully-wired set of OS capabilities + composition, so a host app doesn't hand-assemble the SDK. Android has had this; the `weft-ios-parity` feature (`inception/260602-0149-weft-ios-parity/`) brings it to iOS. | "the turnkey SDK bootstrap" |
+| **Graceful fallback** | An OS capability not yet implemented on a platform returning a clear "not available on this device" result instead of crashing the agent. The contract that lets the iOS capability catalog ship incrementally. | "the unimplemented-capability no-op" |
+| **Lift (a capability down)** | Moving a platform impl a host app wrote for itself (e.g. undercurrent's iOS Keychain / Speech) into the SDK so every host reuses it, then deleting the host copy. | "move host code into the substrate" |
 
 ## Domain entities (data model)
 
