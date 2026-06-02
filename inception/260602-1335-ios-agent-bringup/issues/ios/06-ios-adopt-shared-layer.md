@@ -2,7 +2,8 @@
 type: issue
 feature: ios-agent-bringup
 lane: ios
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 2
 estimate: 60m
 blocked-by:
