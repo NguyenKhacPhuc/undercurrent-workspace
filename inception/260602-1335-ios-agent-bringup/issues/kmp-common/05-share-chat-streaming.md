@@ -2,7 +2,9 @@
 type: issue
 feature: ios-agent-bringup
 lane: kmp-common
-status: in-progress
+status: done
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/15
+merged-at: 2026-06-02T09:34:31Z
 claimed-by: SteveCastalk
 wave: 1
 estimate: 90m
@@ -12,7 +14,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/ios-agent-bringup
-  - status/ready
+  - status/done
   - wave/1
 ---
 
