@@ -44,6 +44,10 @@ Shared language for Undercurrent. Every term here must earn its place by replaci
 | **One-call setup** | The single SDK entry point that returns a fully-wired set of OS capabilities + composition, so a host app doesn't hand-assemble the SDK. Android has had this; the `weft-ios-parity` feature (`inception/260602-0149-weft-ios-parity/`) brings it to iOS. | "the turnkey SDK bootstrap" |
 | **Graceful fallback** | An OS capability not yet implemented on a platform returning a clear "not available on this device" result instead of crashing the agent. The contract that lets the iOS capability catalog ship incrementally. | "the unimplemented-capability no-op" |
 | **Lift (a capability down)** | Moving a platform impl a host app wrote for itself (e.g. undercurrent's iOS Keychain / Speech) into the SDK so every host reuses it, then deleting the host copy. | "move host code into the substrate" |
+| **HTML mini-app** | A [[Mini-app]] that *is* an agent-authored HTML/CSS/JS document rendered by the substrate's `HtmlComponent`, made functional by the agent bridge — the flexible "Tier-B" path, vs a mini-app rendered from the native [[Render tree]] component palette. | "the flexible HTML-based mini-app" |
+| **Agent bridge** (`window.weft`) | The permissioned JS↔native API the substrate injects into an HTML mini-app: `callTool`, `getState`/`setState`, `sendMessage`, `onData`, `theme`, lifecycle. The only way mini-app code reaches outside its sandbox. | "the window.weft bridge a mini-app's JS calls" |
+| **Scope** (mini-app) | One device/app action an HTML mini-app *declares* it needs and the user *approves*. The substrate enforces the approved set at the bridge; the host stores grants + runs the approval UX. Distinct from OAuth scopes. | "a permission a mini-app requests" |
+| **Offerable action** | An action the host has sanctioned as ever-requestable by a mini-app — the menu a user approves [[Scope]]s from. A mini-app can't request anything outside it. | "an action mini-apps are allowed to ask for" |
 
 ## Domain entities (data model)
 
