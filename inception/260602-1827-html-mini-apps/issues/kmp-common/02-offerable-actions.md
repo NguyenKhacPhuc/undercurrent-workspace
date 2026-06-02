@@ -2,7 +2,8 @@
 type: issue
 feature: html-mini-apps
 lane: kmp-common
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 2
 estimate: 45m
 blocked-by: 
@@ -11,7 +12,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/html-mini-apps
-  - status/ready
+  - status/in-progress
   - wave/2
 ---
 
