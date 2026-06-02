@@ -2,7 +2,8 @@
 type: issue
 feature: weft-ios-parity
 lane: substrate
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 2
 estimate: 60m
 blocked-by:
