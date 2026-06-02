@@ -2,7 +2,9 @@
 type: issue
 feature: ios-agent-bringup
 lane: ios
-status: in-progress
+status: done
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/18
+merged-at: 2026-06-02T09:51:30Z
 claimed-by: SteveCastalk
 wave: 3
 estimate: 75m
@@ -12,7 +14,7 @@ tags:
   - inception/issue
   - lane/ios
   - feature/ios-agent-bringup
-  - status/ready
+  - status/done
   - wave/3
 ---
 
