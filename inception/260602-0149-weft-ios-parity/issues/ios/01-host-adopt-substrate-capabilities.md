@@ -2,7 +2,7 @@
 type: issue
 feature: weft-ios-parity
 lane: ios
-status: ready
+status: superseded
 wave: 3
 estimate: 90m
 blocked-by:
@@ -18,6 +18,8 @@ tags:
 ---
 
 # [iOS] Undercurrent adopts the common SDK setup and drops its duplicated impls
+
+> [!warning] **Superseded (2026-06-02).** Construction found this is not "adoption only" — undercurrent's iOS host is a ~10-stub "coming-soon" shell (`StubAgentEngine` + stub repos), so adopting the substrate is a full **iOS agent bring-up**. Re-inceptioned as its own epic: `inception/260602-1335-ios-agent-bringup/` (8 sliced stories). The credential-vault + voice "lift & delete" pieces are folded into that feature's `02-share-secure-key-repo` (done-able now) and the deferred voice work.
 
 **Lane:** iOS (`undercurrent/`)
 **PRD section:** [[PRD]] → Story 7 — Undercurrent adopts the mechanism
