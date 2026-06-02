@@ -2,7 +2,9 @@
 type: issue
 feature: weft-ios-parity
 lane: substrate
-status: in-progress
+status: done
+merged-pr: https://github.com/NguyenKhacPhuc/android-harness/pull/16
+merged-at: 2026-06-02T06:12:28Z
 claimed-by: SteveCastalk
 wave: 2
 estimate: 60m
@@ -22,7 +24,7 @@ tags:
   - inception/issue
   - lane/substrate
   - feature/weft-ios-parity
-  - status/ready
+  - status/done
   - wave/2
 ---
 

@@ -11,9 +11,9 @@ tags:
 
 # Weft iOS parity — feature index
 
-> [!success] **Status:** In construction — 11/15 stories merged to `weft` main (2026-06-02)
-> **Done & merged:** all 10 Wave-0 substrate stories (01–10) + 12 (OAuth). See each issue's `merged-pr`.
-> **Remaining:** 11 (voice — **deferred**, AVAudioSession K/N binding gap, see [[open-questions]] Q3) · 13 (devtools-iOS) · 14 (one-call setup) · `ios/01` (host adoption, wave 3).
+> [!success] **Status:** In construction — 13/15 stories merged to `weft` main (2026-06-02)
+> **Done & merged:** all 10 Wave-0 substrate stories (01–10) + 12 (OAuth) + 14 (one-call setup) + 13 (devtools-iOS). See each issue's `merged-pr`.
+> **Remaining:** 11 (voice — **deferred**, AVAudioSession K/N binding gap, see [[open-questions]] Q3) · `ios/01` (host adoption, wave 3 — needs 14 + 02 + 11).
 > Make the Weft substrate set up and run on iOS with the same one-call mechanism Android has. Foundation/mechanism scope — ~20 device capabilities deliberately deferred ([[out-of-scope]]).
 
 ## Quick links
