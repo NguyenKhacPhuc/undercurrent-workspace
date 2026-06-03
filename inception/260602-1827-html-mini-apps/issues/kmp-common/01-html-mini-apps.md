@@ -2,9 +2,10 @@
 type: issue
 feature: html-mini-apps
 lane: kmp-common
-status: ready
+status: in-progress
 wave: 2
 estimate: 75m
+claimed-by: SteveCastalk
 blocked-by: 
   - "[[01-bridge-call-action]]"
   - "[[03-scope-gate]]"
@@ -12,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/html-mini-apps
-  - status/ready
+  - status/in-progress
   - wave/2
 ---
 
