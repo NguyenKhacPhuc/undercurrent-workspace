@@ -2,9 +2,10 @@
 type: issue
 feature: html-mini-apps
 lane: substrate
-status: ready
+status: in-progress
 wave: 2
 estimate: 60m
+claimed-by: SteveCastalk
 blocked-by: 
   - "[[01-bridge-call-action]]"
   - "[[03-scope-gate]]"
@@ -12,7 +13,7 @@ tags:
   - inception/issue
   - lane/substrate
   - feature/html-mini-apps
-  - status/ready
+  - status/in-progress
   - wave/2
 ---
 
