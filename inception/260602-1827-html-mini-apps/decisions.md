@@ -58,3 +58,18 @@ tags:
   host. The allowlist *seam* is already in place (the dedicated client
   installs weft's `NetworkAllowlistPlugin`), so tightening later is a
   config change — revisit if mini-app HTTP handles sensitive data.
+
+### D6 — Mini-app CSP allows remote https images — 2026-06-05
+
+- **Context:** [[08-sandbox-hardening]] set `img-src data:`, blocking remote
+  images. Device testing hit it immediately: an image-gallery mini-app
+  that takes image URLs couldn't display them.
+- **Decision:** Loosen to `img-src https: data:` — remote https images
+  load; `connect-src 'none'` is unchanged, so `fetch`/`XHR`/`WebSocket`
+  and scripts/styles/frames/navigation stay blocked.
+- **Why:** A gallery that can't show images is broken in practice; remote
+  images are a normal mini-app need. The substrate's real network seal is
+  `connect-src`, not `img-src`.
+- **Consequences:** Residual exfiltration surface = a GET-only image-URL
+  ping with no readable response (size-limited). Accepted for usability.
+  Shipped as weft fix PR #27, bumped into the workspace `weft` submodule.
