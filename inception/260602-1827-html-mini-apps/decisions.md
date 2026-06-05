@@ -43,3 +43,18 @@ tags:
 - **Decision:** **Both.** The substrate ships the bridge; the host (`undercurrent/`) makes a mini-app saveable as an HTML doc (+ declared scopes + state), cached for render-on-tap, with the approval UX and the agent-turn wiring.
 - **Why:** Delivers an actually-usable HTML mini-app end-to-end, not just a mechanism with no consumer.
 - **Consequences:** Cross-repo feature (weft + undercurrent). Host stories depend on substrate stories landing + being bumped into the workspace `weft` submodule.
+
+### D5 — Mini-app HTTP stays unrestricted for now — 2026-06-05
+
+- **Context:** [[05-tighten-miniapp-http-allowlist]] proposed replacing the
+  mini-app `http_fetch` client's `NetworkPolicy.OPEN` with a real,
+  user-curated allowlist.
+- **Decision:** **No limit for now.** Mini-app `http_fetch` keeps
+  `NetworkPolicy.OPEN` (a mini-app may fetch any host), matching the rest
+  of the app's posture. k05 is deferred, not built.
+- **Why:** The driver doesn't want the friction/complexity (an allowlist
+  store + a settings UI + a default-host call) before there's a real need.
+- **Consequences:** A script-enabled, approved mini-app can reach any
+  host. The allowlist *seam* is already in place (the dedicated client
+  installs weft's `NetworkAllowlistPlugin`), so tightening later is a
+  config change — revisit if mini-app HTTP handles sensitive data.
