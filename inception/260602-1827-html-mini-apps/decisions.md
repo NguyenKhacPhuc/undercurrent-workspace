@@ -95,3 +95,19 @@ tags:
   about *device/app* actions (store, share, …), not network. `connect-src`
   / `frame-src` can be tightened back to an allowlist if wanted. Shipped
   as weft PR #28, bumped into the workspace `weft` submodule.
+
+### D8 — Network stays gated through http_fetch (refines D7) — 2026-06-05
+
+- **Context:** D7 opened `connect-src` (direct `fetch`/XHR). Driver
+  reconsidered: network data fetching should remain consent-gated, so the
+  first-run approval is meaningful (approve → it fetches).
+- **Decision:** Revert only `connect-src` to `'none'`. A mini-app's page
+  can't `fetch`/XHR/WebSocket directly; it reaches the network via the
+  gated `http_fetch` action (`window.weft.callTool('http_fetch', {url})`),
+  which runs natively and requires user approval. All other D7 loosenings
+  stand (remote images/audio/video/CSS/fonts, iframes).
+- **Why:** Keeps the permission model honest for network access while
+  still allowing rich display content.
+- **Consequences:** Net posture — *display* resources open over https;
+  *programmatic network* consent-gated through `http_fetch`. Shipped as
+  weft PR #29, bumped into the workspace `weft` submodule.
