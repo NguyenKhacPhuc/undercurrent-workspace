@@ -73,3 +73,25 @@ tags:
 - **Consequences:** Residual exfiltration surface = a GET-only image-URL
   ping with no readable response (size-limited). Accepted for usability.
   Shipped as weft fix PR #27, bumped into the workspace `weft` submodule.
+
+### D7 — Open the mini-app sandbox (network, remote resources, iframes) — 2026-06-05
+
+- **Context:** Device testing showed the [[08-sandbox-hardening]] CSP was
+  too strict for real widgets — no network, no remote CSS/fonts/media, no
+  iframes.
+- **Decision:** Loosen the CSP so a mini-app is a sandboxed web page that
+  can use the network and remote resources over https:
+  `connect-src https: wss:` (fetch/XHR/WebSocket), `frame-src https:`
+  (iframes), `media-src https: data:`, `style-src 'unsafe-inline' https:`,
+  `font-src https: data:`. Nav guards updated to allow sub-frame (iframe)
+  loads while still blocking main-frame navigation away.
+- **Kept blocked:** remote **top-frame scripts** (`script-src` stays
+  inline-only — no `<script src=cdn>`), navigating away, base/form hijack.
+- **Why:** Full-featured widgets need the network + embeds; a sealed page
+  was breaking common cases (galleries, video, API calls).
+- **Consequences:** **This supersedes the network-sealing intent of s08.**
+  A mini-app's JS can now exfiltrate data directly, so the per-action
+  consent gate (`http_fetch`) no longer fences network access — it's now
+  about *device/app* actions (store, share, …), not network. `connect-src`
+  / `frame-src` can be tightened back to an allowlist if wanted. Shipped
+  as weft PR #28, bumped into the workspace `weft` submodule.
