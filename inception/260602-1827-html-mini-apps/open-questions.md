@@ -20,18 +20,6 @@ tags:
 - **[DRIVER GUESS]:** v1 offers a **read-mostly** set (allowlisted http, key-value store, share, clipboard-read, system info). Destructive/sensitive actions are **excluded from the offerable menu in v1**; revisit per-action with a stronger consent model later.
 - **[ASKED OF]:** Product / All — see [[02-offerable-actions]].
 
-### Q2 — Does `sendMessage` (a mini-app firing an agent turn) run in the foreground chat, or silently?
-
-- **Why it matters:** A mini-app calling "ask the assistant" could (a) open/append to the visible chat thread, or (b) run a hidden turn whose result returns only to the mini-app. (a) is transparent but disruptive; (b) is seamless but hides agent activity from the user.
-- **[DRIVER GUESS]:** **Result returns to the mini-app** (b-style), but the turn is **recorded in traces** so it's auditable; not injected into the visible chat thread. Revisit if it feels opaque.
-- **[ASKED OF]:** Product / iOS / Android — see [[04-mini-app-asks-assistant]].
-
-### Q3 — How should the agent decide HTML vs a native component?
-
-- **Why it matters:** With two rendering paths ([[decisions]] D1), the agent needs guidance or it will over/under-use HTML. This is a prompt/docs concern, not code — but it determines whether the feature actually helps.
-- **[DRIVER GUESS]:** Add a short rule to the app preamble: *prefer a native component for structured/standard UI; reach for an HTML mini-app only for custom logic / novel interaction / bespoke viz the palette can't express.* Tune against real behavior.
-- **[ASKED OF]:** All.
-
 ### Q4 — Should native-component (Tier-A) mini-apps persist interaction state for revisit, like HTML mini-apps do?
 
 - **Why it matters:** Story 04 gave HTML mini-apps `window.weft.getState/setState` over a `MiniAppStateStore`. Native-component mini-apps (the `ui_render` tree path) currently restore their cached *layout* on revisit but not the user's *interaction* state (field values, toggles). Raised on weft PR #21.
@@ -48,3 +36,9 @@ tags:
 
 ### Q0c — Bridge surface depth + feature scope? — 2026-06-02
 - **Answer:** Full `window.weft` surface; substrate bridge + host catalog (end-to-end). → [[decisions]] D3, D4.
+
+### Q2 — `sendMessage` foreground vs silent? — 2026-06-05
+- **Answer:** **Silent** — the result returns to the mini-app, no chat navigation. Built in [[04-mini-app-asks-assistant]] (#29). **v1 caveat:** the turn currently runs on the user's *current* conversation, so it lands in chat history (the resolved intent was "not in the visible thread"); isolating it on an ephemeral conversation is a tracked follow-up.
+
+### Q3 — Agent guidance: HTML vs native component? — 2026-06-05
+- **Answer:** Added to the app preamble — prefer native components for standard UI; reach for an HTML mini-app only for bespoke client-side logic / novel interaction; save for reuse via `create_html_mini_app` when the user asks. Shipped with [[07-create-html-mini-app]] (#30). Tune against real behavior.

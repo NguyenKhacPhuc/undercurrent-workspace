@@ -76,15 +76,16 @@ tags:
 
 ## Status snapshot (2026-06-05)
 
-**Feature complete** (Android). All stories done except k05, which is **deferred by decision [[decisions]] D5** (mini-app HTTP stays `OPEN` for now).
+**Feature complete + reachable end-to-end** (Android). All stories done except k05, **deferred by decision [[decisions]] D5** (mini-app HTTP stays `OPEN` for now).
 
 - **Substrate (weft):** s01–s09 all done.
-- **kmp-common (undercurrent):** k01, k02, **k03** (first-run consent), **k04** (mini-app asks the assistant — silent turn), **k06** (render-on-tap). Host-consume of s09 → `store_*` live.
+- **kmp-common (undercurrent):** k01, k02, **k03** (first-run consent), **k04** (asks the assistant — silent), **k06** (render-on-tap), **k07** (the entry point — `create_html_mini_app` tool + agent guidance). Host-consume of s09 → `store_*` live.
 
-A tapped HTML mini-app renders instantly through the bridged `Html` component, scope-gated, asks first-run consent, can `http_fetch` + `store_*`, and can ask the assistant. Android-primary (iOS render still stubbed — tracks the iOS agent/UI bring-up).
+Full flow now works: the agent authors + saves an HTML mini-app (k07) → it renders instantly on tap (k06) → asks first-run consent (k03) → runs scope-gated with `http_fetch` / `store_*` / `sendMessage` live. Q1–Q3 resolved; Q4 (native-component state) is a future substrate story. Android-primary (iOS render still stubbed).
 
 - ⏸️ [[05-tighten-miniapp-http-allowlist]] — deferred (D5). The allowlist *seam* is in place; revisit if mini-app HTTP needs hardening.
 - 📝 Known v1 limitation: k04's assistant turn runs on the user's current conversation (lands in chat history); ephemeral-conversation isolation is a follow-up.
+- 🔲 Definition-of-done device smoke test not yet run (compile-verified only).
 
 ---
 
@@ -108,6 +109,7 @@ issues/
     ├── 03-approve-on-first-run.md    (W3 ← k01,k02,s03) [done]
     ├── 04-mini-app-asks-assistant.md (W3 ← s07,k01)  [done]
     ├── 06-render-html-mini-app.md    (W3 foundation)  [done]
+    ├── 07-create-html-mini-app.md    (W3 entry point) [done]
     └── 05-tighten-miniapp-http-allowlist.md (W4 follow-up)
 ```
 
