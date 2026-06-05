@@ -2,17 +2,19 @@
 type: issue
 feature: html-mini-apps
 lane: substrate
-status: in-progress
+status: done
 wave: 1
 estimate: 60m
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/android-harness/pull/24
+merged-at: 2026-06-05T08:14:29Z
 blocked-by: 
   - "[[01-bridge-call-action]]"
 tags:
   - inception/issue
   - lane/substrate
   - feature/html-mini-apps
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 
