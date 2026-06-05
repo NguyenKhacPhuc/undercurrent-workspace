@@ -2,10 +2,12 @@
 type: issue
 feature: html-mini-apps
 lane: kmp-common
-status: in-progress
+status: done
 wave: 2
 estimate: 75m
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/25
+merged-at: 2026-06-05T07:44:05Z
 blocked-by: 
   - "[[01-bridge-call-action]]"
   - "[[03-scope-gate]]"
@@ -13,7 +15,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/html-mini-apps
-  - status/in-progress
+  - status/done
   - wave/2
 ---
 
