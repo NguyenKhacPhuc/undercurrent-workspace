@@ -74,6 +74,16 @@ tags:
 
 ---
 
+## Status snapshot (2026-06-05)
+
+**Done (on `main`):** all substrate s01–s09 · kmp-common k01, k02, k03, **k06 render-on-tap** · host-consume of s09 (`store_*` live). A tapped HTML mini-app renders instantly through the bridged `Html` component, scope-gated, asks first-run consent, and can `http_fetch` + `store_*`. Android-primary (iOS render still stubbed).
+
+**Remaining — each needs a focused session:**
+- [[04-mini-app-asks-assistant]] — s07's `sendMessage` bridge is ready; wiring a **silent agent turn** (decided) needs a host path to the agent (the one-shot `WeftAgent.send` is `internal`; needs collecting a streamed reply, likely an ephemeral conversation).
+- [[05-tighten-miniapp-http-allowlist]] — decided: default allowlist + prefs-backed additions. Needs a small allowlist repo + a default-host product call + (ideally) a settings surface to add hosts.
+
+---
+
 ## All issues
 
 ```
@@ -89,10 +99,11 @@ issues/
 │   ├── 08-sandbox-hardening.md       (W2 ← s01,s03)
 │   └── 09-invoker-mini-app-id.md     (W4 follow-up)
 └── kmp-common/  (undercurrent/ — catalog + policy + consent)
-    ├── 01-html-mini-apps.md          (W2 ← s01,s03)
-    ├── 02-offerable-actions.md       (W2 ← s03)
-    ├── 03-approve-on-first-run.md    (W3 ← k01,k02,s03)
-    ├── 04-mini-app-asks-assistant.md (W3 ← s07,k01)
+    ├── 01-html-mini-apps.md          (W2 ← s01,s03)  [done]
+    ├── 02-offerable-actions.md       (W2 ← s03)      [done]
+    ├── 03-approve-on-first-run.md    (W3 ← k01,k02,s03) [done]
+    ├── 04-mini-app-asks-assistant.md (W3 ← s07,k01)  [remaining]
+    ├── 06-render-html-mini-app.md    (W3 foundation)  [done]
     └── 05-tighten-miniapp-http-allowlist.md (W4 follow-up)
 ```
 
