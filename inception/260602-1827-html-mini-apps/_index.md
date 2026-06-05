@@ -63,6 +63,13 @@ tags:
 | [[03-approve-on-first-run]] | 75m | kmp-common | `k01`, `k02`, `s03` |
 | [[04-mini-app-asks-assistant]] | 60m | kmp-common | `s07`, `k01` |
 
+### ⚪ Wave 4 — follow-ups (surfaced during `k01` build, PR #25)
+
+| Issue | Estimate | Lane | Blocked by |
+|---|---|---|---|
+| [[05-tighten-miniapp-http-allowlist]] | 45m | kmp-common | — (builds on `k01`) |
+| [[09-invoker-mini-app-id]] | 60m | substrate | — (unlocks host `store_*`) |
+
 > [!note] **Cross-repo gate.** Substrate (`weft/`) stories land as PRs in `weft/` and must be **bumped into the workspace `weft` submodule** before the `kmp-common` (`undercurrent/`) stories that consume them are grabbable. The bridge foundation ([[01-bridge-call-action]] + [[03-scope-gate]]) is the critical cross-repo dependency.
 
 ---
@@ -79,12 +86,14 @@ issues/
 │   ├── 05-live-updates.md            (W1 ← s01)
 │   ├── 06-mini-app-lifecycle.md      (W1 ← s01)
 │   ├── 07-ask-assistant-hook.md      (W1 ← s01)
-│   └── 08-sandbox-hardening.md       (W2 ← s01,s03)
+│   ├── 08-sandbox-hardening.md       (W2 ← s01,s03)
+│   └── 09-invoker-mini-app-id.md     (W4 follow-up)
 └── kmp-common/  (undercurrent/ — catalog + policy + consent)
     ├── 01-html-mini-apps.md          (W2 ← s01,s03)
     ├── 02-offerable-actions.md       (W2 ← s03)
     ├── 03-approve-on-first-run.md    (W3 ← k01,k02,s03)
-    └── 04-mini-app-asks-assistant.md (W3 ← s07,k01)
+    ├── 04-mini-app-asks-assistant.md (W3 ← s07,k01)
+    └── 05-tighten-miniapp-http-allowlist.md (W4 follow-up)
 ```
 
 > [!note] **Updating this index** — flip each issue's `status` (`ready` → `in-progress` → `done`). Substrate PRs land in `weft/`; host PRs in `undercurrent/`.
