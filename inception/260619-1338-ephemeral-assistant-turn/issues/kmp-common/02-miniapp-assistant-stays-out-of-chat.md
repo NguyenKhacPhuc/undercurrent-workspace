@@ -2,7 +2,8 @@
 type: issue
 feature: ephemeral-assistant-turn
 lane: kmp-common
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 1
 estimate: 30m
 blocked-by: ["[[01-isolated-one-shot-turn]]"]
@@ -10,7 +11,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/ephemeral-assistant-turn
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 
