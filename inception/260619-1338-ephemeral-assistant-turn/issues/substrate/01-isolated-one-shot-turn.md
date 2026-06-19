@@ -2,7 +2,8 @@
 type: issue
 feature: ephemeral-assistant-turn
 lane: substrate
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 0
 estimate: 75m
 blocked-by: []
@@ -10,7 +11,7 @@ tags:
   - inception/issue
   - lane/substrate
   - feature/ephemeral-assistant-turn
-  - status/ready
+  - status/in-progress
   - wave/0
 ---
 
