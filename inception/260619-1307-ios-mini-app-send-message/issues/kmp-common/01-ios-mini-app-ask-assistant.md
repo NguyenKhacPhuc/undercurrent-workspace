@@ -2,8 +2,10 @@
 type: issue
 feature: ios-mini-app-send-message
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/47
+merged-at: 2026-06-19T06:30:07Z
 wave: 0
 estimate: 45m
 blocked-by: []
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/ios-mini-app-send-message
-  - status/in-progress
+  - status/done
   - wave/0
 ---
 

@@ -58,13 +58,13 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] [[01-ios-mini-app-ask-assistant]] has status `done`.
+- [x] [[01-ios-mini-app-ask-assistant]] has status `done`. *(Merged — PR #47, 2026-06-19.)*
 - [x] [[open-questions]] has zero unresolved items. *(2026-06-19.)*
 - [x] [[PRD]] has at least one success metric. *(two — parity, no regression.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(No BE work.)*
 - [ ] [[decisions]] reviewed by the mob.
-- [ ] Both targets compile (`compileDebugKotlinAndroid` +
+- [x] Both targets compile (`compileDebugKotlinAndroid` +
       `compileKotlinIosSimulatorArm64`) and the relevant module tests pass,
-      with no Android regression.
+      with no Android regression. *(Verified in PR #47.)*
 - [ ] A mini-app on iOS asks the assistant and gets a reply, in the
       **iOS simulator**. *(Real-device deferred — predecessor [[decisions]] D3.)*
