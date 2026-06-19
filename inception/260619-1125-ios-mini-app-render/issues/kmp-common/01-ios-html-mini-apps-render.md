@@ -42,8 +42,10 @@ reuse — exactly as on Android.
       iOS, with no consent prompt.
 - [ ] A rendered HTML mini-app on iOS can use the host actions it was
       granted (e.g. fetching allowed data, reading/writing its stored
-      data, asking the assistant) and is refused any action it was not
-      granted.
+      data) and is refused any action it was not granted.
+      *(The `sendMessage`/ask-the-assistant binding is deferred to a
+      follow-up — see Out of scope; it needs an iOS agent provider that
+      DI doesn't expose yet, separate from the orchestrator lift.)*
 - [ ] A mini-app's stored data persists on iOS: closing and reopening the
       mini-app restores what it saved.
 - [ ] An iOS user can save the current on-screen result as a reusable
@@ -88,6 +90,13 @@ reuse — exactly as on Android.
 
 ## Out of scope for this story
 
+- **`window.weft.sendMessage` (ask-the-assistant) host binding on iOS** —
+  Android wires a `MiniAppAssistantHandler` into its component registry
+  via an `AgentSession`; iOS DI exposes no equivalent agent provider, so
+  this needs separate chat-DI wiring beyond the orchestrator lift.
+  Deferred to a follow-up story. A mini-app calling `sendMessage` on iOS
+  gets a rejected Promise (the bridge's existing unbound-handler
+  behavior), not a crash.
 - Native-component (non-HTML) mini-app interaction-state persistence
   (separate future substrate story — html-mini-apps Q4).
 - Any new host action or change to the offerable capability set.
