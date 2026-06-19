@@ -2,8 +2,10 @@
 type: issue
 feature: ephemeral-assistant-turn
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/48
+merged-at: 2026-06-19T08:29:57Z
 wave: 1
 estimate: 30m
 blocked-by: ["[[01-isolated-one-shot-turn]]"]
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/ephemeral-assistant-turn
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 

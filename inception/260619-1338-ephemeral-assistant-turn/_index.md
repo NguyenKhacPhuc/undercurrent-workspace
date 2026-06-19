@@ -67,13 +67,14 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] Both issues have status `done`.
+- [x] Both issues have status `done`. *(01 → weft #36; 02 → undercurrent #48, both merged 2026-06-19.)*
 - [x] [[open-questions]] has zero unresolved items. *(2026-06-19.)*
 - [x] [[PRD]] has at least one success metric. *(two — clean chat, answer delivered.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(No BE work.)*
 - [ ] [[decisions]] reviewed by the mob.
-- [ ] `weft` + `undercurrent` build green on both targets with the
-      relevant tests, no normal-chat regression.
+- [x] `weft` + `undercurrent` build green on both targets with the
+      relevant tests, no normal-chat regression. *(Verified in #36 + #48; weft
+      published as 0.0.3, undercurrent CI green against it.)*
 - [ ] On device/simulator: a mini-app asks the assistant, gets an answer,
       and nothing new appears in the chat thread or conversation list —
-      on Android and iOS. *(Real-device deferred.)*
+      on Android and iOS. *(Reviewer smoke; real-device deferred.)*
