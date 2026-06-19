@@ -1,18 +1,18 @@
 ---
 type: feature-index
 feature: html-mini-apps
-status: draft
+status: ready
 created: 2026-06-02
 tags:
   - inception/index
   - feature/html-mini-apps
-  - status/draft
+  - status/ready
 ---
 
 # HTML mini-apps with an agent bridge — feature index
 
-> [!info] **Status:** Draft / awaiting mob review
-> Give the agent's flexible HTML surface a permissioned JS↔agent bridge so mini-apps can *do* things — the Tier-B escape hatch alongside the native component palette. Full bridge surface, per-mini-app declared scopes + approval, substrate bridge + host catalog ([[decisions]]).
+> [!info] **Status:** Feature complete on Android — all questions resolved
+> Give the agent's flexible HTML surface a permissioned JS↔agent bridge so mini-apps can *do* things — the Tier-B escape hatch alongside the native component palette. Full bridge surface, per-mini-app declared scopes + approval, substrate bridge + host catalog ([[decisions]]). Only k05 (HTTP allowlist, deferred by D5), the on-device smoke test, and the iOS render path remain deferred.
 
 ## Quick links
 
@@ -85,7 +85,7 @@ Full flow now works: the agent authors + saves an HTML mini-app (k07) → it ren
 
 - ⏸️ [[05-tighten-miniapp-http-allowlist]] — deferred (D5). The allowlist *seam* is in place; revisit if mini-app HTTP needs hardening.
 - 📝 Known v1 limitation: k04's assistant turn runs on the user's current conversation (lands in chat history); ephemeral-conversation isolation is a follow-up.
-- 🔲 Definition-of-done device smoke test not yet run (compile-verified only).
+- 🔲 Definition-of-done device smoke test explicitly **deferred** — no hardware available as of 2026-06-19 (compile-verified only). iOS render still stubbed.
 
 ---
 
@@ -119,8 +119,8 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues `done`.
-- [ ] [[open-questions]] resolved (Q1 offerable set, Q2 sendMessage surfacing, Q3 agent guidance).
+- [ ] All issues `done`. *(k05-tighten-miniapp-http-allowlist deferred by decision D5; all others done)*
+- [x] [[open-questions]] resolved (Q1 offerable set, Q2 sendMessage surfacing, Q3 agent guidance, Q4 native-component state).
 - [ ] [[PRD]] has ≥1 success metric. ✅ (four)
 - [ ] [[api-contract]] has zero `TBD`. ✅ (no BE)
-- [ ] A demo HTML mini-app calls an approved action + persists state + adopts the theme, end-to-end on a device; an un-approved call is provably refused; both targets compile with no Android regression.
+- [ ] A demo HTML mini-app calls an approved action + persists state + adopts the theme, end-to-end on a device; an un-approved call is provably refused; both targets compile with no Android regression. *(deferred — requires on-device smoke; compile-verified only, no hardware 2026-06-19. iOS render still stubbed.)*

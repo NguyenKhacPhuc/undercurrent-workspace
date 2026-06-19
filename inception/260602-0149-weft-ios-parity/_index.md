@@ -11,9 +11,9 @@ tags:
 
 # Weft iOS parity — feature index
 
-> [!success] **Status:** In construction — 13/15 stories merged to `weft` main (2026-06-02)
+> [!success] **Status:** In construction — 13/15 stories merged to `weft` main (2026-06-02). [[open-questions]] Q3 resolved (deferred) 2026-06-19; the only remaining gaps are the deferred voice story + on-device smoke.
 > **Done & merged:** all 10 Wave-0 substrate stories (01–10) + 12 (OAuth) + 14 (one-call setup) + 13 (devtools-iOS). See each issue's `merged-pr`.
-> **Remaining:** 11 (voice — **deferred**, AVAudioSession K/N binding gap, see [[open-questions]] Q3). `ios/01` (host adoption) is **superseded** → re-inceptioned as the full iOS agent bring-up at `inception/260602-1335-ios-agent-bringup/` (the host turned out to be a coming-soon shell, not an adoption tweak).
+> **Remaining:** 11 (voice — **deferred**, AVAudioSession K/N binding gap, see [[open-questions]] Q3) + on-device smoke (deferred — no hardware 2026-06-19). `ios/01` (host adoption) is **superseded** → re-inceptioned as the full iOS agent bring-up at `inception/260602-1335-ios-agent-bringup/` (the host turned out to be a coming-soon shell, not an adoption tweak).
 > Make the Weft substrate set up and run on iOS with the same one-call mechanism Android has. Foundation/mechanism scope — ~20 device capabilities deliberately deferred ([[out-of-scope]]).
 
 ## Quick links
@@ -106,9 +106,9 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues have status `done`.
+- [ ] All issues have status `done`. *(11-ios-voice-input deferred — K/N AVAudioSession binding gap, see open-questions Q3; 01 superseded by ios-agent-bringup; all other 13 done)*
 - [x] [[open-questions]] has zero unresolved items — Q1 + Q2 resolved 2026-06-02 (see [[decisions]] D5 + [[13-ios-debug-overlay]]).
 - [x] [[decisions]] reviewed and ratified by the mob — 2026-06-02 (D1–D5).
 - [ ] [[PRD]] has at least one success metric. ✅ (three)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (no BE work)
-- [ ] An iOS host stands up the SDK from one call and runs an agent turn on a real device, with all 10 foundational capabilities working and undercurrent's duplicated impls deleted.
+- [ ] An iOS host stands up the SDK from one call and runs an agent turn on a real device, with all 10 foundational capabilities working and undercurrent's duplicated impls deleted. *(deferred — requires on-device smoke; no hardware available 2026-06-19)*

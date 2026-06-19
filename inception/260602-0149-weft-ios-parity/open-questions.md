@@ -10,17 +10,18 @@ tags:
 # Open questions
 
 > [!question]
-> Driver's parking lot. All items resolved with the driver — **this file is empty of open items**, so the Inception phase's open-questions gate is met.
+> Driver's parking lot. All items resolved with the driver (Q3 resolved 2026-06-19 as a deferral) — **this file is empty of open items**, so the Inception phase's open-questions gate is met.
 
 ## Open
 
-### Q3 — iOS voice input (story 11) is blocked by a Kotlin/Native binding gap
-
-- **Why it matters:** `Speech.recognize()` needs `AVAudioSession.setActive/setCategory/setMode`, which are **unresolved references** in Kotlin/Native 2.3.10 against the iOS 26.4 SDK (confirmed by compile probe in weft, 2026-06-02; undercurrent hit the identical wall and stubbed its `IosSpeechRepository`). Voice input cannot be implemented against the commonized `platform.AVFAudio` bindings as-is. Note the "lift undercurrent's impl" hint in [[11-ios-voice-input]] is void — that impl is itself a no-op stub.
-- **[DRIVER GUESS]:** Fix via a **custom cinterop `.def`** in `:os-bridge` that explicitly binds `AVAudioSession` + `SFSpeechRecognizer`, OR wait for a Kotlin/Native release with refreshed iOS 26.4 bindings. Either is its own slice; [[11-ios-voice-input]] stays `ready` (deferred) until then. `say`/`stop` (TTS via `AVSpeechSynthesizer`) are unaffected and could ship separately.
-- **[ASKED OF]:** iOS
+*(none)*
 
 ## Resolved
+
+### Q3 — iOS voice input blocked by a Kotlin/Native binding gap — 2026-06-19
+
+- **Answer:** Deferred. Voice input (story 11) is blocked by the K/N AVAudioSession binding gap against the iOS 26.4 SDK; fix is its own future slice (custom cinterop .def in :os-bridge binding AVAudioSession + SFSpeechRecognizer, or a K/N release with refreshed bindings). TTS (say/stop via AVSpeechSynthesizer) is unaffected and could ship separately.
+- **By:** Driver (SteveCastalk)
 
 ### Q1 — Who owns the iOS permission usage-description strings? — 2026-06-02
 

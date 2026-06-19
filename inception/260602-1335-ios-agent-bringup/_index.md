@@ -1,17 +1,17 @@
 ---
 type: feature-index
 feature: ios-agent-bringup
-status: draft
+status: ready
 created: 2026-06-02
 tags:
   - inception/index
   - feature/ios-agent-bringup
-  - status/draft
+  - status/ready
 ---
 
 # iOS agent bring-up — feature index
 
-> [!info] **Status:** Draft / awaiting mob review
+> [!info] **Status:** Construction complete — all questions resolved; only on-device smoke deferred (no hardware available 2026-06-19).
 > Bring undercurrent's iOS app from a "coming-soon" shell to a working agent, by consuming the merged **weft-ios-parity** substrate. MVP = working text agent + OAuth integrations; Koog-bits + voice deferred ([[out-of-scope]]).
 
 ## Quick links
@@ -89,8 +89,8 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues have status `done`.
-- [ ] [[open-questions]] has zero unresolved items (Q1 + Q2 confirmed by the mob).
+- [x] All issues have status `done`.
+- [x] [[open-questions]] has zero unresolved items (Q1 + Q2 confirmed by the mob).
 - [ ] [[PRD]] has at least one success metric. ✅ (three)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (no BE work)
-- [ ] An iOS user sends a message and gets a streaming agent reply on a real device; integrations connect via OAuth; the shared layer compiles green on Android + iOS with no Android regression.
+- [ ] An iOS user sends a message and gets a streaming agent reply on a real device; integrations connect via OAuth; the shared layer compiles green on Android + iOS with no Android regression. *(deferred — requires on-device smoke; no hardware available 2026-06-19)*

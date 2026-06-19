@@ -1,18 +1,18 @@
 ---
 type: feature-index
 feature: mobile-auth-wiring
-status: draft
+status: ready
 created: 2026-06-01
 tags:
   - inception/index
   - feature/mobile-auth-wiring
-  - status/draft
+  - status/ready
 ---
 
 # Mobile auth wiring — feature index
 
-> [!info] **Status:** Draft / awaiting mob review
-> Replaces the earlier (now-deleted) sign-in-flow Inception now that the BE has shipped. See [[decisions#D1]].
+> [!success] **Status:** Construction complete — all 6 stories merged, all questions resolved (2026-06-19).
+> Decisions ratified by the driver (SteveCastalk) 2026-06-19. The only remaining DoD items are on-device end-to-end + stale-token smoke tests, deferred for lack of hardware. See [[decisions#D1]].
 
 ## Quick links
 
@@ -85,10 +85,10 @@ The lane split reflects [[decisions#D2]] — secure token storage is genuinely p
 
 ## Definition of done (whole feature)
 
-- [ ] All 6 issues have status `done` in their frontmatter.
-- [ ] [[open-questions]] has zero unresolved items.
-- [ ] [[PRD]] has at least one success metric. *(currently: three — completion rate, 401-recoveries, sign-out usage.)*
+- [x] All 6 issues have status `done` in their frontmatter. *(all merged.)*
+- [x] [[open-questions]] has zero unresolved items. *(all 6 resolved 2026-06-19.)*
+- [x] [[PRD]] has at least one success metric. *(currently: three — completion rate, 401-recoveries, sign-out usage.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(Consumes existing BE; nothing TBD.)*
-- [ ] [[decisions]] reviewed by mob.
-- [ ] End-to-end on a real Android device + a real iOS device: fresh install → sign-in screen → register → home → Settings shows account → Sign Out → back to sign-in screen → sign in with same creds → home.
-- [ ] Stale-token recovery confirmed: while signed in, revoke the session server-side (via dashboard or a curl to the BE); next authed call returns 401 → app wipes token → routes to sign-in.
+- [x] [[decisions]] reviewed by mob. *(ratified by driver (SteveCastalk) 2026-06-19.)*
+- [ ] End-to-end on a real Android device + a real iOS device: fresh install → sign-in screen → register → home → Settings shows account → Sign Out → back to sign-in screen → sign in with same creds → home. *(deferred — requires on-device smoke; no hardware available 2026-06-19)*
+- [ ] Stale-token recovery confirmed: while signed in, revoke the session server-side (via dashboard or a curl to the BE); next authed call returns 401 → app wipes token → routes to sign-in. *(deferred — requires on-device smoke; no hardware available 2026-06-19)*
