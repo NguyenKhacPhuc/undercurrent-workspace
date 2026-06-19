@@ -2,8 +2,10 @@
 type: issue
 feature: ephemeral-assistant-turn
 lane: substrate
-status: in-progress
+status: done
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/android-harness/pull/36
+merged-at: 2026-06-19T07:12:00Z
 wave: 0
 estimate: 75m
 blocked-by: []
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/substrate
   - feature/ephemeral-assistant-turn
-  - status/in-progress
+  - status/done
   - wave/0
 ---
 
