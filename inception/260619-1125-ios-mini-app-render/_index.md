@@ -58,14 +58,14 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] [[01-ios-html-mini-apps-render]] has status `done`.
+- [x] [[01-ios-html-mini-apps-render]] has status `done`. *(Merged — PR #46, 2026-06-19.)*
 - [x] [[open-questions]] has zero unresolved items. *(All resolved 2026-06-19.)*
 - [x] [[PRD]] has at least one success metric. *(two — open success, parity.)*
 - [x] [[api-contract]] has zero `TBD` markers. *(No BE work.)*
 - [ ] [[decisions]] reviewed by the mob.
-- [ ] Both targets compile (`compileDebugKotlinAndroid` +
+- [x] Both targets compile (`compileDebugKotlinAndroid` +
       `compileKotlinIosSimulatorArm64`) and `:feature:miniapps` tests pass,
-      with no Android regression.
+      with no Android regression. *(Verified in PR #46.)*
 - [ ] A saved HTML mini-app opens → (first-run consent) → renders → runs a
       scope-gated action → persists state, in the **iOS simulator**.
-      *(Real-device smoke deferred — [[decisions]] D3.)*
+      *(Reviewer smoke; real-device deferred — [[decisions]] D3.)*

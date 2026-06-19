@@ -2,8 +2,10 @@
 type: issue
 feature: ios-mini-app-render
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: SteveCastalk
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/46
+merged-at: 2026-06-19T06:03:51Z
 wave: 0
 estimate: 90m
 blocked-by: []
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/ios-mini-app-render
-  - status/in-progress
+  - status/done
   - wave/0
 ---
 
