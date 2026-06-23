@@ -2,7 +2,8 @@
 type: issue
 feature: live-activity
 lane: kmp-common
-status: ready
+status: in-progress
+claimed-by: SteveCastalk
 wave: 0
 estimate: 60m
 blocked-by: []
@@ -10,7 +11,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/live-activity
-  - status/ready
+  - status/in-progress
   - wave/0
 ---
 
