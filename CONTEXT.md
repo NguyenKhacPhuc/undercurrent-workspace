@@ -48,6 +48,13 @@ Shared language for Undercurrent. Every term here must earn its place by replaci
 | **Agent bridge** (`window.weft`) | The permissioned JS↔native API the substrate injects into an HTML mini-app: `callTool`, `getState`/`setState`, `sendMessage`, `onData`, `theme`, lifecycle. The only way mini-app code reaches outside its sandbox. | "the window.weft bridge a mini-app's JS calls" |
 | **Scope** (mini-app) | One device/app action an HTML mini-app *declares* it needs and the user *approves*. The substrate enforces the approved set at the bridge; the host stores grants + runs the approval UX. Distinct from OAuth scopes. | "a permission a mini-app requests" |
 | **Offerable action** | An action the host has sanctioned as ever-requestable by a mini-app — the menu a user approves [[Scope]]s from. A mini-app can't request anything outside it. | "an action mini-apps are allowed to ask for" |
+| **Mini-App Exchange** | The feature that lets a signed-in user share an [[HTML mini-app]] via a link + QR, and lets anyone preview + install it, re-granting [[Scope]]s through the existing consent flow. Introduced by `inception/260619-1440-mini-app-exchange/`. | "the mini-app sharing feature" |
+| **Share bundle** | The portable representation of an [[HTML mini-app]] — name, emoji, optional description, the HTML document, and `declaredScopes`. Deliberately excludes per-device saved state. A *request* for capabilities, never a grant: the recipient re-clamps it against their own [[Offerable action]] set at install. | "the shareable mini-app payload" |
+| **Share record** | The backend-stored [[Share bundle]] plus owner `accountId`, a display-name snapshot, and created/revoked timestamps, addressed by a short `share.<base62-10>` id. Resolves to a preview while live; 404s once revoked. | "the server-side share entry" |
+| **Live Activity** | The in-chat waiting experience that replaces the static "Thinking…" with an animated indicator narrating the assistant's current action, plus a per-reply [[Step trail]]. Derived entirely from the existing tool start/done/fail chunk stream; applies to visible turns only. Introduced by `inception/260619-1548-live-activity/`. | "the animated thinking/activity UI" |
+| **Activity phrase** | The friendly, plain-language description of one assistant action — a present-tense ("Looking at the map…"), past-tense ("Looked at the map"), and failure ("Couldn't reach the map") form plus an icon. App-side per-action map with a generic fallback so a raw `snake_case` tool name is never shown. | "the human label for what a tool is doing" |
+| **Step trail** | The compact, low-key record of the actions a turn took, kept above that reply after it finishes — past-tense [[Activity phrase]]s. The glanceable in-chat layer; the [[Trace]] screen remains the place for full detail. | "the friendly per-reply list of steps" |
+| **Prompt config** | The backend-served, operator-updatable base prompt the assistant runs on (app intro + behavioral / anti-hallucination rules) — one global record, identified by a changing `revision`. Replaces the formerly compiled-in `ASSISTANT_APP_PREAMBLE`. Clients fetch it at startup, cache the last good copy, and run on it; there is **no** compiled-in fallback. Introduced by `inception/260619-1559-backend-driven-prompt/`. | "the server-driven system prompt" |
 
 ## Domain entities (data model)
 
@@ -79,8 +86,15 @@ The shape of the things Undercurrent reasons about. Not Repository API shapes �
 
 - **What it is:** A user-saved trigger prompt.
 - **Identifier:** String id `feature.<uuid12>` (prefix kept for back-compat with the original "Saved Features" naming).
-- **Key fields:** `id`, `name`, `emoji`, `triggerPrompt`, `createdAtEpochMs`, `usageCount`, `lastRenderTreeJson?`, `lastRenderedAtEpochMs?`.
-- **Lifecycle:** User-created. Usage count + last-render-tree update on each invoke. Deletable.
+- **Key fields:** `id`, `name`, `emoji`, `triggerPrompt`, `createdAtEpochMs`, `usageCount`, `lastRenderTreeJson?`, `lastRenderedAtEpochMs?`. HTML mini-apps additionally carry `htmlDocument?`, `declaredScopes`, `approvedScopes`, `consentedAt?`, `stateJson?`. The Mini-App Exchange feature adds `description?` (author blurb), and provenance for installed-from-share copies (which share it came from + the sharer's display name) plus, for shared-out apps, the share id needed to revoke.
+- **Lifecycle:** User-created, or installed from a [[Share record]]. Usage count + last-render-tree update on each invoke. A bundle-installed mini-app starts un-consented (`consentedAt` null) so first launch runs the [[Scope]] approval prompt. Deletable.
+
+### ShareRecord (backend)
+
+- **What it is:** A backend-stored [[Share bundle]] that makes one [[HTML mini-app]] installable by anyone with the link.
+- **Identifier:** Short URL-safe id `share.<base62-10>` (opaque, unguessable, QR-friendly).
+- **Key fields:** the bundle (`name`, `emoji`, `description?`, `html`, `declaredScopes`), `ownerAccountId`, `authorName` (display-name snapshot at share time), `sharedAtMs`, `revokedAtMs?`.
+- **Lifecycle:** Created by `POST /v1/mini-apps/share` (auth). Read by `GET /v1/mini-apps/share/{id}` (public). Soft-revoked by `DELETE /v1/mini-apps/share/{id}` (owner only) → fetch then 404s. Already-installed recipient copies are unaffected by revoke. Lives in `backend/` only.
 
 ### ThemePrefs
 
@@ -124,6 +138,13 @@ The shape of the things Undercurrent reasons about. Not Repository API shapes �
 - **Key fields:** `displayName` (non-empty, ≤40 chars), `email` (loose format check).
 - **Lifecycle:** Created the first time the user completes the sign-in screen on a fresh install or upgrade-without-profile. Editable from Settings. Absence of a profile is what triggers the blocking sign-in screen on launch. Never deleted in v1.
 - **Relationships:** None today. Future BE-backed sync will need to anchor a server account to this profile (migration TBD when that lands).
+
+### PromptConfig
+
+- **What it is:** The single, global, backend-owned base prompt the assistant runs on (see [[Prompt config]]).
+- **Identifier:** A singleton record; addressed by its changing `revision` marker rather than an id.
+- **Key fields:** `preamble` (full base prompt text), `revision` (opaque, changes on every edit), `updatedAtMs`.
+- **Lifecycle:** Seeded at cut-over with the previously compiled-in prompt text (behavior-neutral). Read by clients via `GET /v1/prompt-config` (auth) at startup; replaced by an authorized operator via `PUT /v1/prompt-config`. Lives in `backend/`; clients cache the last successful fetch locally and have no compiled-in fallback.
 
 ### MemoryEntry
 
