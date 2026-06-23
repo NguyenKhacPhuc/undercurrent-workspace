@@ -65,7 +65,7 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues have status `done` in their frontmatter. *(2/4 — [[01-tool-phrase-map]] #49, [[02-animated-activity-indicator]] #50, merged 2026-06-23.)*
+- [ ] All issues have status `done` in their frontmatter. *(3/4 — 01 #49, 02 #50, [[03-live-tool-narration]] #51, merged 2026-06-23.)*
 - [ ] [[open-questions]] has zero unresolved items (Q1–Q4: timing, copy, density, actionless-reply behavior).
 - [ ] [[PRD]] has at least one success metric. ✅ (two defined)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (no backend)

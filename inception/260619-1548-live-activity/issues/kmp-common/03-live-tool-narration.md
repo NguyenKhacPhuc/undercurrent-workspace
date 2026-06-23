@@ -2,8 +2,10 @@
 type: issue
 feature: live-activity
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/51
+merged-at: 2026-06-23T09:40:12Z
 wave: 1
 estimate: 60m
 blocked-by: ["[[01-tool-phrase-map]]", "[[02-animated-activity-indicator]]"]
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/live-activity
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 
