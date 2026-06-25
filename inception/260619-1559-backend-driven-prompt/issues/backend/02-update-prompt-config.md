@@ -2,7 +2,8 @@
 type: issue
 feature: backend-driven-prompt
 lane: backend
-status: ready
+status: in-progress
+claimed-by: NguyenKhacPhuc
 wave: 1
 estimate: 40m
 blocked-by: ["[[01-serve-prompt-config]]"]
@@ -10,7 +11,7 @@ tags:
   - inception/issue
   - lane/backend
   - feature/backend-driven-prompt
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 

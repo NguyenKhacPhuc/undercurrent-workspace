@@ -2,7 +2,8 @@
 type: issue
 feature: backend-driven-prompt
 lane: kmp-common
-status: ready
+status: in-progress
+claimed-by: NguyenKhacPhuc
 wave: 1
 estimate: 50m
 blocked-by: ["[[01-prompt-config-repository]]"]
@@ -10,7 +11,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/backend-driven-prompt
-  - status/ready
+  - status/in-progress
   - wave/1
 ---
 
