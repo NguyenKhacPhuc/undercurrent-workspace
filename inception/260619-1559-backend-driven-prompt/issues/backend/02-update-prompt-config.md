@@ -2,8 +2,10 @@
 type: issue
 feature: backend-driven-prompt
 lane: backend
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent-backend/pull/13
+merged-at: 2026-06-25T08:58:01Z
 wave: 1
 estimate: 40m
 blocked-by: ["[[01-serve-prompt-config]]"]
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/backend
   - feature/backend-driven-prompt
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 

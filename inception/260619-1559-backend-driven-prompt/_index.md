@@ -72,7 +72,7 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues have status `done` in their frontmatter. *(5/6 — wave 0: 01-serve-prompt-config (BE #12), 01-prompt-config-repository (#56); wave 1: 02-cold-start-gate (#57), 01-android-apply-served-prompt (#58), 01-ios-apply-served-prompt (#59). Remaining: 02-update-prompt-config (BE #13, open).)*
+- [x] All issues have status `done` in their frontmatter. *(6/6 — wave 0: 01-serve-prompt-config (BE #12), 01-prompt-config-repository (#56); wave 1: 02-cold-start-gate (#57), 01-android-apply-served-prompt (#58), 01-ios-apply-served-prompt (#59), 02-update-prompt-config (BE #13).)*
 - [ ] [[open-questions]] has zero unresolved items (Q1 cold-start UX, Q2 invalid-prompt guard, Q3 operator auth, Q4 revision short-circuit).
 - [ ] [[PRD]] has at least one success metric. ✅ (three defined)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (operator-auth mechanism parked as a deferred decision, not a TBD field)
