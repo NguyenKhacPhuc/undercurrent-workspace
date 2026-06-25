@@ -2,8 +2,10 @@
 type: issue
 feature: backend-driven-prompt
 lane: ios
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/59
+merged-at: 2026-06-25T08:48:34Z
 wave: 1
 estimate: 40m
 blocked-by: ["[[01-prompt-config-repository]]"]
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/ios
   - feature/backend-driven-prompt
-  - status/in-progress
+  - status/done
   - wave/1
 ---
 
