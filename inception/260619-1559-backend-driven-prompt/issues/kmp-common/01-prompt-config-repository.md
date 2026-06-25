@@ -2,8 +2,10 @@
 type: issue
 feature: backend-driven-prompt
 lane: kmp-common
-status: in-progress
+status: done
 claimed-by: NguyenKhacPhuc
+merged-pr: https://github.com/NguyenKhacPhuc/undercurrent/pull/56
+merged-at: 2026-06-25T08:12:11Z
 wave: 0
 estimate: 45m
 blocked-by: []
@@ -11,7 +13,7 @@ tags:
   - inception/issue
   - lane/kmp-common
   - feature/backend-driven-prompt
-  - status/in-progress
+  - status/done
   - wave/0
 ---
 

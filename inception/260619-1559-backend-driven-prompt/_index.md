@@ -72,7 +72,7 @@ issues/
 
 ## Definition of done (whole feature)
 
-- [ ] All issues have status `done` in their frontmatter.
+- [ ] All issues have status `done` in their frontmatter. *(2/6 — wave 0 complete: 01-serve-prompt-config (BE #12), 01-prompt-config-repository (#56). Wave 1 unblocked.)*
 - [ ] [[open-questions]] has zero unresolved items (Q1 cold-start UX, Q2 invalid-prompt guard, Q3 operator auth, Q4 revision short-circuit).
 - [ ] [[PRD]] has at least one success metric. ✅ (three defined)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (operator-auth mechanism parked as a deferred decision, not a TBD field)
