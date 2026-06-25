@@ -73,7 +73,7 @@ issues/
 ## Definition of done (whole feature)
 
 - [x] All issues have status `done` in their frontmatter. *(6/6 — wave 0: 01-serve-prompt-config (BE #12), 01-prompt-config-repository (#56); wave 1: 02-cold-start-gate (#57), 01-android-apply-served-prompt (#58), 01-ios-apply-served-prompt (#59), 02-update-prompt-config (BE #13).)*
-- [ ] [[open-questions]] has zero unresolved items (Q1 cold-start UX, Q2 invalid-prompt guard, Q3 operator auth, Q4 revision short-circuit).
+- [x] [[open-questions]] has zero unresolved items — all four resolved against shipped code (Q2/Q3 as guessed, Q4 skipped for v1). ⚠️ Q1 cold-start UX shipped simpler than the guess: no fetch timeout, manual Retry only (no auto-retry on reconnect) — flagged for mob confirmation.
 - [ ] [[PRD]] has at least one success metric. ✅ (three defined)
 - [ ] [[api-contract]] has zero `TBD` markers. ✅ (operator-auth mechanism parked as a deferred decision, not a TBD field)
 - [ ] End-to-end: an operator changes the prompt → a relaunched client (Android and iOS) uses it → no app release involved.

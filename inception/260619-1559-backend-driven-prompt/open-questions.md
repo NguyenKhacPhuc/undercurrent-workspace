@@ -20,11 +20,15 @@ On a fresh install with no fetched prompt and no/slow network, the assistant is 
 
 **[DRIVER GUESS: a brief "Getting set up…" spinner; after ~10s without success, switch to "Couldn't connect — Retry"; auto-retry when connectivity returns AND on manual tap.]** Mob: confirm the timing and copy.
 
+**RESOLVED (shipped #57, `PromptSetupScreen`/`PromptSetupViewModel`):** copy is `"Getting set up…"` → on failure `"Couldn't connect. Check your connection."` + `"Retry"`. Shipped **simpler than the guess**: no explicit fetch timeout (httpClient default; any error → Failed state), and **manual Retry only — no auto-retry on reconnect**. ⚠️ Deviates from the driver guess (10s timeout + auto-retry dropped). Flag if the no-auto-retry UX is unacceptable.
+
 ## Q2 — Server-side guard on what can be applied
 
 With no client fallback, a bad served prompt (empty, truncated, accidental) affects everyone. Should the backend refuse to store an invalid prompt, and what counts as invalid?
 
 **[DRIVER GUESS: reject empty/whitespace and below a minimum length on `PUT`; otherwise trust the operator. No content validation beyond that in v1.]** Mob: is a minimum-length + non-empty guard enough, or do we want a stronger safeguard (e.g. a required confirmation, a server-held last-known-good the client can fall back to)?
+
+**RESOLVED (shipped #13, `PromptConfigRoute`):** per the guess — reject empty/whitespace/`< 20 chars` → `400 invalid_request`; otherwise trust the operator. No last-known-good fallback in v1.
 
 ## Q3 — Operator-authorization mechanism for updates
 
@@ -32,8 +36,12 @@ How is the `PUT /v1/prompt-config` caller authorized? Options: a shared operator
 
 **[DRIVER GUESS: a server-configured operator secret required on the update endpoint for v1; revisit if/when more operators or an editor UI arrive.]** Mob: confirm the mechanism (this is the one parked item in [[api-contract]]).
 
+**RESOLVED (shipped #13, `PromptConfigRoute`):** per the guess — `X-Operator-Secret` header compared against the boot-read `PROMPT_OPERATOR_SECRET`; **fail-closed when unset**; mismatch/missing → `403`. Separate from the GET bearer auth.
+
 ## Q4 — Revision check to avoid re-downloading an unchanged prompt
 
 Should the client send its cached `revision` so the server can answer "unchanged" cheaply, or just always return the full prompt at startup?
 
 **[DRIVER GUESS: nice-to-have, not required for v1 — always returning the full payload at startup is fine at this scale; add the revision short-circuit only if payload size becomes a concern.]** Mob: confirm we can skip the short-circuit for v1.
+
+**RESOLVED (shipped):** skipped for v1 per the guess. Client `GET /v1/prompt-config` sends bearer auth only — no `revision`/`If-None-Match`; server always returns the full payload. `revision` is carried in the payload but not used to short-circuit.
